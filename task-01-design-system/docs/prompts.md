@@ -67,13 +67,13 @@ variables from tokens.css.
 
 **Prompt (verbatim):**
 ```
-[Read demo/tokens.css and docs/type-scale.md first. Summarise what you read
+Read demo/tokens.css and docs/type-scale.md first. Summarise what you read
 and wait for my approval.
 Then build demo/with-system/index.html: the same welcome screen.
 Use ONLY role, type and shadow variables from tokens.css.
 No hex, rgb or hsl values anywhere outside tokens.css.
 Heading uses Display Small, description uses Body Large,
-button text uses Label Large.]
+button text uses Label Large.
 ```
 
 **What happened:**

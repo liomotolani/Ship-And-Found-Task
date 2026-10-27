@@ -6,7 +6,7 @@
       "value": {
         "shadowType": "dropShadow",
         "radius": 30,
-        "color": "#0000001f",
+        "color": "#0e7c7b1f",
         "offsetX": 1.5,
         "offsetY": 6,
         "spread": 0
@@ -18,7 +18,7 @@
       "value": {
         "shadowType": "dropShadow",
         "radius": 24,
-        "color": "#0000002e",
+        "color": "#0e7c7b2e",
         "offsetX": 4,
         "offsetY": 6,
         "spread": 0
@@ -30,7 +30,7 @@
       "value": {
         "shadowType": "dropShadow",
         "radius": 20,
-        "color": "#00000033",
+        "color": "#0e7c7b33",
         "offsetX": 6,
         "offsetY": 10,
         "spread": 0

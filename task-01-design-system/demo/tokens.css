@@ -278,7 +278,7 @@
   /* ==========================================================================
      Shadow Variables
      ========================================================================== */
-  --shadow-soft: 1.5px 6px 30px 0px rgba(0, 0, 0, 0.12);
-  --shadow-medium: 4px 6px 24px 0px rgba(0, 0, 0, 0.18);
-  --shadow-hard: 6px 10px 20px 0px rgba(0, 0, 0, 0.2);
+  --shadow-soft: 1.5px 6px 30px 0px rgba(14, 124, 123, 0.12);
+  --shadow-medium: 4px 6px 24px 0px rgba(14, 124, 123, 0.18);
+  --shadow-hard: 6px 10px 20px 0px rgba(14, 124, 123, 0.2);
 }

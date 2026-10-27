@@ -33,6 +33,16 @@ The first export (evidence/05-tokens-incomplete.json)had typography and effects 
 weren't included. I noticed when I searched the file for 'primary' and
 got no results.
 
+### The deliberate regression
+I copied the brand teal directly into the primary role instead of
+referencing the palette, then changed the brand colour at the source.
+The link, which still referenced the palette, turned purple, but the
+button stayed teal because its role held a copied value with no link
+back to the source. Nothing looked wrong until the brand changed, which
+is why copied hex values are dangerous: they hide until a rebrand, then
+leave the interface inconsistent. See
+evidence/11-broken-referencing.png and evidence/12-git-log-branch-unmerged.txt.
+
 
 ## Evidence
 

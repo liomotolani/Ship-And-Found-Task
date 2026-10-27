@@ -18,14 +18,15 @@ prove the AI agent actually used the system instead of its own defaults.
 - One welcome screen built twice: without the system and with it.
 
 ## Key decisions
-- Brand colour: #0E7C7B. [Where it came from, 1 line.]
-- Font: Source Sans 3, because [1 line linking to "calm, empathetic,
-  fast, trustworthy"].
+- Brand colour: #0E7C7B I choose this because it is mostly used by vetclinic products I had other options but it is calmer and more friendly.
+- Font: Source Sans 3, because is a humanist sans serif, so its letter shapes feel warmer than geometric fonts, which suits empathetic replies. Its open letter shapes stay clear at small sizes, so staff can scan drafts and sources quickly while juggling several tasks.It looks plain and steady rather than trendy, which supports trust.
 - Display Large: 64px with 96px line height instead of Material's 57/64.
   See docs/divergences.md.
 - On-primary is white, because white on #0E7C7B is 5.01:1 and black
   is only 4.19:1, which fails WCAG AA.
 
+## What I got wrong
+I forgot to add roles for the warning and success key colors, I had to rework my design system and then reconverted the json into css variables.
 
 ### The incomplete export
 The first export (evidence/05-tokens-incomplete.json)had typography and effects but no colour roles, because Figma variables

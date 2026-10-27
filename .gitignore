@@ -12,6 +12,7 @@ node_modules/
 jspm_packages/
 
 # Production build outputs
+.next/
 dist/
 build/
 out/

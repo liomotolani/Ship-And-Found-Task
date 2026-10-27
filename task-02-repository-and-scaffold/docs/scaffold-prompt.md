@@ -55,7 +55,7 @@ Then STOP. Do not create any files until I reply "approved".
 - If two files disagree, stop and ask me which is right. Do not guess.
 - Styling uses ONLY the CSS variables from tokens.css. No hex, rgb, hsl,
   pixel font sizes or shadows written directly in components.
-- Create the project in [PROJECT FOLDER PATH] itself, not in a new
+- Create the project in the root folder itself, not in a new
   subfolder inside it.
 
 ## STEP 5: SCOPE, BUILD ONLY THIS
@@ -67,12 +67,13 @@ Then STOP. Do not create any files until I reply "approved".
 3. Design tokens: tokens.css copied into the project and loaded
    globally.
 4. A minimal home screen with only:
-   - the VetReply name (Display Small)
-   - a one-line tagline (Body Large)
-   - one primary button labelled "Get started" (Label Large), which does nothing yet on the surface background, using colour roles only.
+   - the VetReply name
+   - a one-line tagline
+   - one primary button labelled "Get started", which does nothing yet on the surface background, using colour roles only.
+   - nav menu
+   - footer
 
-Do NOT build: login, signup, a database, an API, environment variables,
-navigation, a footer, or any VetReply feature.
+Do NOT build: login, signup, a database, an API, environment variables,  any VetReply feature.
 
 ## STEP 6: REPORT
 When finished, give me:

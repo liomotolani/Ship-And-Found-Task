@@ -1,0 +1,21 @@
+=== First load timing ===
+Server: npm run dev, freshly restarted, http://localhost:3000
+
+--- curl, first load ---
+$ curl -o /dev/null -s -w "status: %{http_code}\ntotal time: %{time_total}s\n" http://localhost:3000
+status: 200
+total time: 0.852231s
+
+--- curl, reload ---
+$ curl -o /dev/null -s -w "reload status: %{http_code}\nreload time: %{time_total}s\n" http://localhost:3000
+reload status: 200
+reload time: 0.122551s
+
+--- Server log for the same two requests ---
+ ✓ Compiled / in 483ms (546 modules)
+ GET / 200 in 802ms
+ GET / 200 in 83ms
+
+--- Summary ---
+First load: 852 ms (curl), 802 ms on the server, of which 483 ms compiling
+Reload: 123 ms (curl), 83 ms on the server

@@ -1,0 +1,14 @@
+* 7c37534 Initial Root Readme.md content added
+*   3a5ecf0 Merge pull request #2 from liomotolani/task-01-design-system
+|\  
+| * 2154ced Fix Readme file
+* | ac20d68 Merge pull request #1 from liomotolani/task-01-design-system
+|\| 
+| * a1afae9 Task 1: screen built with and without design system
+| * c86520b Task 1: JSON to CSS token script
+| * 65e42d2 Task 1: token exports, incomplete and complete
+| * 4bf79a1 Task 1: shadow system
+| * dcb25de Task 1: typography scale and divergences
+| * 99856b7 Task 1: colour system and contrast ratios
+|/  
+* 42009e8 initial commit

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VetReply provides veterinary clinic teams with fast, verified answers and empathetic client communication support.">
+  <title>VetReply — Veterinary Clinic Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--type-body-large-font-family);
+      background-color: var(--color-background);
+      color: var(--color-on-background);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      background-color: var(--color-surface-container-lowest);
+      border-bottom: 1px solid var(--color-outline-variant);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--type-title-medium-font-family);
+      font-size: var(--type-title-medium-size);
+      font-weight: var(--type-title-medium-weight);
+      line-height: var(--type-title-medium-line-height);
+      letter-spacing: var(--type-title-medium-letter-spacing);
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background-color: var(--color-primary);
+      color: var(--color-on-primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-badge {
+      font-family: var(--type-label-small-font-family);
+      font-size: var(--type-label-small-size);
+      font-weight: var(--type-label-small-weight);
+      line-height: var(--type-label-small-line-height);
+      letter-spacing: var(--type-label-small-letter-spacing);
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      background-color: var(--color-secondary-container);
+      color: var(--color-on-secondary-container);
+      border: 1px solid var(--color-outline-variant);
+    }
+
+    /* Main Welcome Screen Container */
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .welcome-card {
+      background-color: var(--color-surface);
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      max-width: 640px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow-medium);
+      border: 1px solid var(--color-outline-variant);
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: var(--color-surface-variant);
+      color: var(--color-on-surface-variant);
+      font-family: var(--type-label-medium-font-family);
+      font-size: var(--type-label-medium-size);
+      font-weight: var(--type-label-medium-weight);
+      line-height: var(--type-label-medium-line-height);
+      letter-spacing: var(--type-label-medium-letter-spacing);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--color-success);
+    }
+
+    /* Heading uses Display Small */
+    h1 {
+      font-family: var(--type-display-small-font-family);
+      font-size: var(--type-display-small-size);
+      font-weight: var(--type-display-small-weight);
+      line-height: var(--type-display-small-line-height);
+      letter-spacing: var(--type-display-small-letter-spacing);
+      color: var(--color-on-surface);
+      margin-bottom: 1rem;
+    }
+
+    /* Description uses Body Large */
+    .description {
+      font-family: var(--type-body-large-font-family);
+      font-size: var(--type-body-large-size);
+      font-weight: var(--type-body-large-weight);
+      line-height: var(--type-body-large-line-height);
+      letter-spacing: var(--type-body-large-letter-spacing);
+      color: var(--color-on-surface-variant);
+      margin-bottom: 2rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Button text uses Label Large */
+    .btn-get-started {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: var(--type-label-large-font-family);
+      font-size: var(--type-label-large-size);
+      font-weight: var(--type-label-large-weight);
+      line-height: var(--type-label-large-line-height);
+      letter-spacing: var(--type-label-large-letter-spacing);
+      background-color: var(--color-primary);
+      color: var(--color-on-primary);
+      padding: 0.875rem 2.25rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.2s ease-in-out;
+      text-decoration: none;
+    }
+
+    .btn-get-started:hover {
+      filter: brightness(0.92);
+      box-shadow: var(--shadow-medium);
+      transform: translateY(-1px);
+    }
+
+    .btn-get-started:active {
+      transform: translateY(0);
+      filter: brightness(0.85);
+    }
+
+    .helper-text {
+      font-family: var(--type-body-small-font-family);
+      font-size: var(--type-body-small-size);
+      font-weight: var(--type-body-small-weight);
+      line-height: var(--type-body-small-line-height);
+      letter-spacing: var(--type-body-small-letter-spacing);
+      color: var(--color-on-surface-variant);
+    }
+
+    /* Feature highlights */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--color-outline-variant);
+      text-align: left;
+    }
+
+    .highlight-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .highlight-title {
+      font-family: var(--type-title-small-font-family);
+      font-size: var(--type-title-small-size);
+      font-weight: var(--type-title-small-weight);
+      line-height: var(--type-title-small-line-height);
+      letter-spacing: var(--type-title-small-letter-spacing);
+      color: var(--color-on-surface);
+    }
+
+    .highlight-desc {
+      font-family: var(--type-body-small-font-family);
+      font-size: var(--type-body-small-size);
+      font-weight: var(--type-body-small-weight);
+      line-height: var(--type-body-small-line-height);
+      letter-spacing: var(--type-body-small-letter-spacing);
+      color: var(--color-on-surface-variant);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.25rem;
+      font-family: var(--type-body-small-font-family);
+      font-size: var(--type-body-small-size);
+      font-weight: var(--type-body-small-weight);
+      line-height: var(--type-body-small-line-height);
+      letter-spacing: var(--type-body-small-letter-spacing);
+      color: var(--color-on-surface-variant);
+      border-top: 1px solid var(--color-outline-variant);
+      background-color: var(--color-surface-container-lowest);
+    }
+
+    @media (max-width: 640px) {
+      .welcome-card {
+        padding: 2rem 1.5rem;
+      }
+
+      .highlights-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <a href="" class="brand">
+      <div class="brand-icon">🐾</div>
+      <span>VetReply</span>
+    </a>
+    <span class="nav-badge">Practice Portal</span>
+  </header>
+
+  <!-- Welcome Screen Hero -->
+  <main class="main-content">
+    <div class="welcome-card">
+      <div class="badge-pill">
+        <span class="badge-dot"></span>
+        AI Clinical &amp; Reception Assistant
+      </div>
+
+      <h1>Welcome to VetReply</h1>
+
+      <p class="description">
+        Fast, verified answers and empathetic communication support for veterinary receptionists and practice teams. Manage client inquiries and appointment requests with confidence.
+      </p>
+
+      <div class="actions">
+        <button id="get-started-btn" class="btn-get-started" type="button">
+          Get started
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+        <span class="helper-text">No setup required &bull; Works seamlessly with your practice workflow</span>
+      </div>
+
+      <div class="highlights-grid">
+        <div class="highlight-item">
+          <div class="highlight-title">⚡ Fast Answers</div>
+          <div class="highlight-desc">Instant clinical &amp; scheduling info during live calls.</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-title">💬 Empathetic Replies</div>
+          <div class="highlight-desc">Thoughtfully drafted messages for sensitive pet situations.</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-title">🔒 Verified Sources</div>
+          <div class="highlight-desc">Responses drawn strictly from practice-approved documents.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 VetReply. Designed for veterinary practice teams.
+  </footer>
+</body>
+</html>

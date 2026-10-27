@@ -1,0 +1,9 @@
+I used the Label Large typography style for the "Get started" button text.
+
+The exact CSS variables used are:
+
+var(--type-label-large-font-family)
+var(--type-label-large-size)
+var(--type-label-large-weight)
+var(--type-label-large-line-height)
+var(--type-label-large-letter-spacing)

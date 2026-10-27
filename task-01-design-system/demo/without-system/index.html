@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VetReply provides veterinary clinic teams with fast, verified answers and empathetic client communication support.">
+  <title>VetReply — Veterinary Clinic Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f4ff 0%, #eef2f6 50%, #f8fafc 100%);
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+
+    /* Top Navigation */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: #3b82f6;
+      color: #ffffff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .nav-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      background-color: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #bfdbfe;
+    }
+
+    /* Main Welcome Screen Container */
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .welcome-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      max-width: 640px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      border: 1px solid #e2e8f0;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .description {
+      font-size: 1.05rem;
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-get-started {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background-color: #2563eb;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.875rem 2.25rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3), 0 2px 4px -2px rgba(37, 99, 235, 0.2);
+      transition: all 0.2s ease-in-out;
+      text-decoration: none;
+    }
+
+    .btn-get-started:hover {
+      background-color: #1d4ed8;
+      box-shadow: 0 6px 10px -1px rgba(37, 99, 235, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-get-started:active {
+      transform: translateY(0);
+      background-color: #1e40af;
+    }
+
+    .helper-text {
+      font-size: 0.8125rem;
+      color: #94a3b8;
+    }
+
+    /* Feature highlights */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid #f1f5f9;
+      text-align: left;
+    }
+
+    .highlight-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .highlight-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .highlight-desc {
+      font-size: 0.75rem;
+      color: #64748b;
+      line-height: 1.4;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.25rem;
+      font-size: 0.8125rem;
+      color: #94a3b8;
+      border-top: 1px solid #e2e8f0;
+      background: #ffffff;
+    }
+
+    @media (max-width: 640px) {
+      .welcome-card {
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      .highlights-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <a href="#" class="brand">
+      <div class="brand-icon">🐾</div>
+      <span>VetReply</span>
+    </a>
+    <span class="nav-badge">Practice Portal</span>
+  </header>
+
+  <!-- Welcome Screen Hero -->
+  <main class="main-content">
+    <div class="welcome-card">
+      <div class="badge-pill">
+        <span class="badge-dot"></span>
+        AI Clinical &amp; Reception Assistant
+      </div>
+
+      <h1>Welcome to VetReply</h1>
+
+      <p class="description">
+        Fast, verified answers and empathetic communication support for veterinary receptionists and practice teams. Manage client inquiries and appointment requests with confidence.
+      </p>
+
+      <div class="actions">
+        <button id="get-started-btn" class="btn-get-started" type="button">
+          Get started
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+        <span class="helper-text">No setup required &bull; Works seamlessly with your practice workflow</span>
+      </div>
+
+      <div class="highlights-grid">
+        <div class="highlight-item">
+          <div class="highlight-title">⚡ Fast Answers</div>
+          <div class="highlight-desc">Instant clinical &amp; scheduling info during live calls.</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-title">💬 Empathetic Replies</div>
+          <div class="highlight-desc">Thoughtfully drafted messages for sensitive pet situations.</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-title">🔒 Verified Sources</div>
+          <div class="highlight-desc">Responses drawn strictly from practice-approved documents.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 VetReply. Designed for veterinary practice teams.
+  </footer>
+</body>
+</html>

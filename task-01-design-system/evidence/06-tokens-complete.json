@@ -1004,6 +1004,46 @@
       "description": "",
       "type": "color",
       "value": "{primitives.color palettes.neutral.neutral0}"
+    },
+    "warning": {
+      "description": "",
+      "type": "color",
+      "value": "{primitives.color palettes.warning.warning40}"
+    },
+    "on warning": {
+      "description": "",
+      "type": "color",
+      "value": "{primitives.color palettes.warning.warning95}"
+    },
+    "warning container": {
+      "description": "",
+      "type": "color",
+      "value": "{primitives.color palettes.warning.warning90}"
+    },
+    "on warning container": {
+      "description": "",
+      "type": "color",
+      "value": "{primitives.color palettes.warning.warning30}"
+    },
+    "success": {
+      "description": "",
+      "type": "color",
+      "value": "{primitives.color palettes.success.success40}"
+    },
+    "success container": {
+      "description": "",
+      "type": "color",
+      "value": "{primitives.color palettes.success.success90}"
+    },
+    "on success": {
+      "description": "",
+      "type": "color",
+      "value": "{primitives.color palettes.success.success95}"
+    },
+    "on success container": {
+      "description": "",
+      "type": "color",
+      "value": "{primitives.color palettes.success.success30}"
     }
   },
   "typography": {

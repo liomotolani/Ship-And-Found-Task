@@ -24,23 +24,23 @@ Line height = font size x 1.4, 1.5 or 1.6, rounded to the nearest whole number.
 
 ## The 15 styles
 
-| Style           | Font   | Size (px) | Weight | Letter spacing | Multiplier | Line height (px) |
+| Style           | Font          | Size (px) | Weight | Letter spacing | Multiplier | Line height (px) |
 |-----------------|--------|-----------|--------|----------------|------------|------------------|
-| Display Large   | [font] | 64        | 400    | -2.5           | 1.5        | 96               |
-| Display Medium  | [font] | 45        | 400    | -1             | 1.4        | 63               |
-| Display Small   | [font] | 36        | 400    | 0              | 1.5        | 54               |
-| Headline Large  | [font] | 32        | 400    | 0              | 1.5        | 48               |
-| Headline Medium | [font] | 28        | 400    | 0              | 1.5        | 42               |
-| Headline Small  | [font] | 24        | 400    | 0              | 1.5        | 36               |
-| Title Large     | [font] | 22        | 400    | 0              | 1.5        | 33               |
-| Title Medium    | [font] | 16        | 500    | 0.15           | 1.5        | 24               |
-| Title Small     | [font] | 14        | 500    | 0.1            | 1.5        | 21               |
-| Body Large      | [font] | 16        | 400    | 0.5            | 1.5        | 24               |
-| Body Medium     | [font] | 14        | 400    | 0.25           | 1.5        | 21               |
-| Body Small      | [font] | 12        | 400    | 0.4            | 1.5        | 18               |
-| Label Large     | [font] | 14        | 500    | 0.1            | 1.5        | 21               |
-| Label Medium    | [font] | 12        | 500    | 0.5            | 1.5        | 18               |
-| Label Small     | [font] | 11        | 500    | 0.5            | 1.5        | 16.5             |
+| Display Large   | Source Sans 3 | 64        | 400    | -2.5           | 1.5        | 96               |
+| Display Medium  | Source Sans 3 | 45        | 400    | -1             | 1.4        | 63               |
+| Display Small   | Source Sans 3 | 36        | 400    | 0              | 1.5        | 54               |
+| Headline Large  | Source Sans 3 | 32        | 400    | 0              | 1.5        | 48               |
+| Headline Medium | Source Sans 3 | 28        | 400    | 0              | 1.5        | 42               |
+| Headline Small  | Source Sans 3 | 24        | 400    | 0              | 1.5        | 36               |
+| Title Large     | Source Sans 3 | 22        | 400    | 0              | 1.5        | 33               |
+| Title Medium    | Source Sans 3 | 16        | 500    | 0.15           | 1.5        | 24               |
+| Title Small     | Source Sans 3 | 14        | 500    | 0.1            | 1.5        | 21               |
+| Body Large      | Source Sans 3 | 16        | 400    | 0.5            | 1.5        | 24               |
+| Body Medium     | Source Sans 3 | 14        | 400    | 0.25           | 1.5        | 21               |
+| Body Small      | Source Sans 3 | 12        | 400    | 0.4            | 1.5        | 18               |
+| Label Large     | Source Sans 3 | 14        | 500    | 0.1            | 1.5        | 21               |
+| Label Medium    | Source Sans 3 | 12        | 500    | 0.5            | 1.5        | 18               |
+| Label Small     | Source Sans 3 | 11        | 500    | 0.5            | 1.5        | 16.5             |
 
 ## Worked examples
 - Display Large: 64 x 1.5 = 96

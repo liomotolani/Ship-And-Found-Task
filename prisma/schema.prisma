@@ -1,0 +1,361 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  extensions = [vector]
+}
+
+enum Role {
+  CLIENT
+  RECEPTIONIST
+  VET
+  PRACTICE_MANAGER
+}
+
+enum AccessLevel {
+  RECEPTION
+  CLINICAL
+  MANAGER_ONLY
+}
+
+enum DocStatus {
+  INDEXING
+  READY
+  FAILED
+}
+
+enum Channel {
+  ONLINE
+  EMAIL
+  PHONE
+  IN_PERSON
+}
+
+enum EnquiryStatus {
+  NEW
+  NEEDS_CLINICAL
+  DRAFT_READY
+  SENT
+  SEND_FAILED
+  ANSWERED_ON_THE_SPOT
+  CLOSED
+}
+
+enum CloseReason {
+  DUPLICATE
+  SPAM
+  RESOLVED_OTHER_WAY
+  OTHER
+}
+
+enum ReplyKind {
+  NON_CLINICAL
+  CLINICAL
+}
+
+enum ReplyOrigin {
+  AI_DRAFT
+  EDITED
+  STAFF_WRITTEN
+}
+
+enum ReplyStatus {
+  DRAFT
+  APPROVED
+  SENT
+  FAILED
+}
+
+enum QuickOutcome {
+  ANSWERED
+  NO_INFORMATION
+  CLINICAL_REFUSED
+  FAILED
+}
+
+enum AiFlow {
+  CLASSIFY
+  QUICK
+  DRAFT
+  CLINICAL_DRAFT
+  EMBED
+}
+
+enum EmailType {
+  E1
+  E2
+  E3
+  E4
+  E5
+  E6
+  E7
+  E8
+}
+
+enum EmailStatus {
+  SENT
+  FAILED
+}
+
+enum BookingStatus {
+  PENDING_PAYMENT
+  CONFIRMED
+  RELEASED
+  CANCELLED
+}
+
+enum RefundDecision {
+  REFUND
+  NO_REFUND
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  EXPIRED
+  REFUND_PENDING
+  REFUNDED
+  REFUND_FAILED
+}
+
+model User {
+  id                String         @id
+  name              String
+  email             String         @unique
+  emailVerified     Boolean        @default(false)
+  role              Role           @default(CLIENT)
+  isActive          Boolean        @default(true)
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  documents         Document[]     @relation("DocumentCreator")
+  enquiriesLogged   Enquiry[]      @relation("EnquiryLogger")
+  repliesApproved   Reply[]        @relation("ReplyApprover")
+  quickAnswers      QuickAnswer[]
+  aiCalls           AiCall[]
+  availability      Availability[]
+  vetBookings       Booking[]      @relation("BookingVet")
+  createdBookings   Booking[]      @relation("BookingCreator")
+  cancelledBookings Booking[]      @relation("BookingCanceller")
+  membership        Membership?
+}
+
+model PracticeSettings {
+  id                      String   @id @default("default")
+  practiceName            String
+  practicePhone           String
+  appointmentMinutes      Int
+  cancelCutoffHours       Int
+  bookingWindowDays       Int
+  membershipPricePence    Int?
+  stripeMembershipPriceId String?
+  updatedAt               DateTime @updatedAt
+}
+
+model Document {
+  id          String      @id @default(cuid())
+  title       String
+  body        String
+  accessLevel AccessLevel
+  status      DocStatus   @default(INDEXING)
+  liveVersion Int         @default(0)
+  createdById String
+  createdBy   User        @relation("DocumentCreator", fields: [createdById], references: [id])
+  chunks      Chunk[]
+  sources     ReplySource[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Chunk {
+  id         String                      @id @default(cuid())
+  documentId String
+  document   Document                    @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  version    Int
+  position   Int
+  content    String
+  embedding  Unsupported("vector(1536)")?
+  sources    ReplySource[]
+  createdAt  DateTime                    @default(now())
+
+  @@index([documentId, version])
+}
+
+model Enquiry {
+  id            String        @id @default(cuid())
+  channel       Channel
+  clientName    String
+  clientEmail   String?
+  petName       String?
+  question      String
+  isClinical    Boolean       @default(true)
+  status        EnquiryStatus @default(NEEDS_CLINICAL)
+  loggedById    String?
+  loggedBy      User?         @relation("EnquiryLogger", fields: [loggedById], references: [id])
+  onTheSpotNote String?
+  closeReason   CloseReason?
+  closeNote     String?
+  replies       Reply[]
+  emails        EmailLog[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([status, createdAt])
+  @@index([clientEmail])
+}
+
+model Reply {
+  id           String        @id @default(cuid())
+  enquiryId    String
+  enquiry      Enquiry       @relation(fields: [enquiryId], references: [id])
+  kind         ReplyKind
+  origin       ReplyOrigin
+  draftText    String?
+  finalText    String?
+  status       ReplyStatus   @default(DRAFT)
+  approvedById String?
+  approvedBy   User?         @relation("ReplyApprover", fields: [approvedById], references: [id])
+  approvedAt   DateTime?
+  sentAt       DateTime?
+  sources      ReplySource[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model ReplySource {
+  id            String    @id @default(cuid())
+  replyId       String
+  reply         Reply     @relation(fields: [replyId], references: [id], onDelete: Cascade)
+  documentId    String?
+  document      Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
+  chunkId       String?
+  chunk         Chunk?    @relation(fields: [chunkId], references: [id], onDelete: SetNull)
+  documentTitle String
+}
+
+model QuickAnswer {
+  id           String       @id @default(cuid())
+  userId       String
+  user         User         @relation(fields: [userId], references: [id])
+  question     String
+  answer       String?
+  outcome      QuickOutcome
+  sourceTitles String[]
+  durationMs   Int
+  createdAt    DateTime     @default(now())
+}
+
+model AiCall {
+  id           String   @id @default(cuid())
+  userId       String?
+  user         User?    @relation(fields: [userId], references: [id])
+  flow         AiFlow
+  success      Boolean
+  inputTokens  Int?
+  outputTokens Int?
+  createdAt    DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
+
+model EmailLog {
+  id        String      @id @default(cuid())
+  type      EmailType
+  recipient String
+  status    EmailStatus
+  errorCode String?
+  enquiryId String?
+  enquiry   Enquiry?    @relation(fields: [enquiryId], references: [id])
+  bookingId String?
+  booking   Booking?    @relation(fields: [bookingId], references: [id])
+  paymentId String?
+  payment   Payment?    @relation(fields: [paymentId], references: [id])
+  createdAt DateTime    @default(now())
+}
+
+model Fee {
+  id             String    @id @default(cuid())
+  name           String
+  amountPence    Int
+  isConsultation Boolean   @default(false)
+  isActive       Boolean   @default(true)
+  payments       Payment[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Availability {
+  id          String @id @default(cuid())
+  vetId       String
+  vet         User   @relation(fields: [vetId], references: [id])
+  weekday     Int
+  startMinute Int
+  endMinute   Int
+
+  @@index([vetId, weekday])
+}
+
+model Booking {
+  id             String          @id @default(cuid())
+  vetId          String
+  vet            User            @relation("BookingVet", fields: [vetId], references: [id])
+  startsAt       DateTime
+  clientName     String
+  clientEmail    String
+  reason         String?
+  asMember       Boolean         @default(false)
+  status         BookingStatus
+  holdExpiresAt  DateTime?
+  createdById    String?
+  createdBy      User?           @relation("BookingCreator", fields: [createdById], references: [id])
+  cancelledById  String?
+  cancelledBy    User?           @relation("BookingCanceller", fields: [cancelledById], references: [id])
+  cancelReason   String?
+  refundDecision RefundDecision?
+  payment        Payment?
+  emails         EmailLog[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@index([vetId, startsAt])
+  @@index([clientEmail])
+}
+
+model Payment {
+  id                      String        @id @default(cuid())
+  bookingId               String        @unique
+  booking                 Booking       @relation(fields: [bookingId], references: [id])
+  feeId                   String
+  fee                     Fee           @relation(fields: [feeId], references: [id])
+  amountPence             Int
+  status                  PaymentStatus @default(PENDING)
+  stripeCheckoutSessionId String?       @unique
+  stripePaymentIntentId   String?       @unique
+  stripeRefundId          String?       @unique
+  refundAttempts          Int           @default(0)
+  paidAt                  DateTime?
+  refundedAt              DateTime?
+  emails                  EmailLog[]
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt
+}
+
+model Membership {
+  id                   String    @id @default(cuid())
+  userId               String    @unique
+  user                 User      @relation(fields: [userId], references: [id])
+  stripeCustomerId     String    @unique
+  stripeSubscriptionId String?   @unique
+  status               String
+  currentPeriodEnd     DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+}
+
+model StripeEvent {
+  id          String   @id
+  type        String
+  processedAt DateTime @default(now())
+}

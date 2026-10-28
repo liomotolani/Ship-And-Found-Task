@@ -65,6 +65,22 @@ export default function Navbar() {
               About
             </a>
           </li>
+          <li>
+            <a
+              href="/enquiries/new"
+              style={{
+                fontFamily: 'var(--type-label-large-font-family)',
+                fontSize: 'var(--type-label-large-size)',
+                fontWeight: 'var(--type-label-large-weight)',
+                lineHeight: 'var(--type-label-large-line-height)',
+                letterSpacing: 'var(--type-label-large-letter-spacing)',
+                color: 'var(--color-on-surface-variant)',
+                textDecoration: 'none',
+              }}
+            >
+              My enquiries
+            </a>
+          </li>
         </ul>
       </nav>
     </header>

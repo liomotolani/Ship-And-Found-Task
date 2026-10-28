@@ -35,7 +35,7 @@ export default function Navbar() {
         >
           <li>
             <a
-              href="#"
+              href="/home"
               style={{
                 fontFamily: 'var(--type-label-large-font-family)',
                 fontSize: 'var(--type-label-large-size)',

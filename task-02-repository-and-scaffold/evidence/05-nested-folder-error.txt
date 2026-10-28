@@ -1,0 +1,21 @@
+=== Nested folder error ===
+Wed Oct 28 12:16:25 GMT 2026
+
+$ pwd
+/Users/omotolaniligali/Desktop/nested-demo
+
+$ ls
+vetreply
+
+$ npm prefix
+/Users/omotolaniligali/Desktop/nested-demo
+
+$ npm run dev
+npm error code ENOENT
+npm error syscall open
+npm error path /Users/omotolaniligali/Desktop/nested-demo/package.json
+npm error errno -2
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/Users/omotolaniligali/Desktop/nested-demo/package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: /Users/omotolaniligali/.npm/_logs/2026-10-28T12_16_26_438Z-debug-0.log

@@ -42,7 +42,7 @@ Node.js [version, check with `node -v`]
 
 Git.
 
-# Instructions
+### Instructions
 
 git clone https://github.com/liomotolani/Ship-And-Found-Task
 

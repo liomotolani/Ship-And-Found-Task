@@ -1,0 +1,20 @@
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    container_name: vetreply-db
+    environment:
+      POSTGRES_USER: vetreply
+      POSTGRES_PASSWORD: vetreply
+      POSTGRES_DB: vetreply
+    ports:
+      - '5434:5432'
+    volumes:
+      - vetreply-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U vetreply -d vetreply']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  vetreply-db-data:

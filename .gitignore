@@ -12,6 +12,7 @@ node_modules/
 jspm_packages/
 
 # Production build outputs
+.next/
 dist/
 build/
 out/
@@ -35,3 +36,18 @@ lerna-debug.log*
 .idea/
 *.sublime-project
 *.sublime-workspace
+
+# Agent context: the instructions, the rules and the skills the agent reads.
+# They guide the work, the code never reads them.
+/.agents/
+/.agent/
+/agent/
+/agents/
+/rules/
+/skills/
+/AGENTS.md
+
+# Specification and copy documents: the PRD, the message wording and the home
+# page copy. The wording lives in the code, so these files are not needed to
+# build or run the app. README.md stays in the repository.
+/docs/*.md

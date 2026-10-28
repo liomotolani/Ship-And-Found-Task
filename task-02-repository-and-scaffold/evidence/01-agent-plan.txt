@@ -1,0 +1,112 @@
+Implementation Plan
+
+
+1. Stack
+Framework: Next.js (^15.2.0, App Router) — Required by PRD 8.1; provides React Server Components, server actions, and fast hosting.
+Language: TypeScript (^5.8.0) — Required by PRD 8.1; enforces strict typing and prevents runtime boundary errors.
+Package Manager: npm (11.20.0) — Required by PRD 8.1; standard Node package manager, locks exact dependencies via package-lock.json.
+UI Core: React 19 (^19.0.0) and React DOM (^19.0.0) — Default peer dependency for Next.js 15.
+Styling: Vanilla CSS custom properties — Locked stack; strictly no Tailwind or third-party CSS libraries.
+
+
+2. Project Setup
+Folder: Root folder /Users/omotolaniligali/Desktop/Ship-And-Found-Task. Commands in order:
+
+Create package.json with scripts (dev, build, start, lint) and pinned dependencies.
+Create tsconfig.json configured for Next.js App Router and @/* path mapping.
+Create next.config.mjs.
+Run npm install in the root folder.
+Create architectural folders with .gitkeep placeholders.
+Copy tokens.css into app/tokens.css and create app/globals.css, app/layout.tsx, components/Navbar.tsx, components/Footer.tsx, and app/page.tsx.
+Launch npm run dev -- --port 3000.
+
+
+3. Folder Structure
+The full architecture specified in PRD 8.1 / AGENTS.md:
+
+.
+├── app/                  # Next.js App Router pages, layout, and global styles
+├── components/           # Presentational, reusable UI components (Navbar, Footer)
+├── server/
+│   ├── actions/          # Server actions that validate input and invoke services (.gitkeep)
+│   ├── services/         # Domain business logic, permissions, and transactions (.gitkeep)
+│   ├── data/             # Prisma queries and raw SQL chunk queries (.gitkeep)
+│   ├── ai/               # Gemini AI client, prompts, and output schemas (.gitkeep)
+│   ├── email/            # Nodemailer send functions and email templates (.gitkeep)
+│   └── payments/         # Stripe test mode wrappers and webhook dispatch (.gitkeep)
+├── config/               # Central limits, labels, notice texts, and model names (.gitkeep)
+├── lib/
+│   └── validation/       # Zod schemas for input validation (.gitkeep)
+├── prisma/
+│   ├── schema.prisma     # Prisma schema (.gitkeep)
+│   └── seed/             # Development seed data (.gitkeep)
+│       └── documents/    # Synthetic practice documents (.gitkeep)
+├── scripts/              # Setup scripts (e.g. first Practice Manager creation) (.gitkeep)
+└── tests/                # Unit, integration, E2E, and evaluation tests (.gitkeep)
+
+
+4. Files to Create or Change
+package.json (create in root)
+tsconfig.json (create in root)
+next.config.mjs (create in root)
+app/tokens.css (copied from task-01-design-system/demo/tokens.css)
+app/globals.css (create: baseline resets, box-sizing, canvas background using tokens)
+app/layout.tsx (create: root HTML layout, Source Sans 3 font loading, lang="en-GB", metadata)
+app/page.tsx (create: minimal home screen)
+components/Navbar.tsx (create: presentational header menu using tokens)
+components/Footer.tsx (create: presentational footer using tokens)
+.gitkeep files in each empty architectural folder listed above.
+.gitignore (update to ensure .next/ and Next build artifacts are excluded).
+
+
+5. Design Tokens Integration
+task-01-design-system/demo/tokens.css will be copied to app/tokens.css.
+app/layout.tsx will import ./tokens.css and ./globals.css globally.
+Google Font Source Sans 3 (weights 400 and 500) will be loaded via next/font/google in app/layout.tsx and applied as the default font family.
+
+
+6. Home Screen Structure & Tokens
+Canvas / Background: background-color: var(--color-background); color: var(--color-on-background);
+Navbar (components/Navbar.tsx):
+Container: background-color: var(--color-surface-container-lowest); border-bottom: 1px solid var(--color-outline-variant); box-shadow: var(--shadow-soft);
+Brand Name: var(--type-title-medium-*), color: var(--color-primary);
+Nav Links: var(--type-label-large-*), color: var(--color-on-surface-variant);
+Welcome Surface (app/page.tsx):
+Card Container: background-color: var(--color-surface); border: 1px solid var(--color-outline-variant); box-shadow: var(--shadow-medium);
+Name: Display Small (--type-display-small-*: 36px, 400 weight, 54px line height, 0px letter spacing), color: var(--color-on-surface);
+Tagline: Body Large (--type-body-large-*: 16px, 400 weight, 24px line height, 0.5px letter spacing), color: var(--color-on-surface-variant);
+"Get started" button: Label Large (--type-label-large-*: 14px, 500 weight, 21px line height, 0.1px letter spacing), background-color: var(--color-primary); color: var(--color-on-primary); box-shadow: var(--shadow-soft);
+Footer (components/Footer.tsx):
+Container: background-color: var(--color-surface-container-lowest); border-top: 1px solid var(--color-outline-variant);
+Text: var(--type-body-small-*), color: var(--color-on-surface-variant);
+
+
+7. Verification Steps
+Run npm run build or npx tsc --noEmit to verify type safety and build success.
+Run npm run dev and test with curl -I http://localhost:3000 to confirm HTTP 200 OK.
+Automated code scan: run grep -rnE "#[0-9a-fA-F]{3,8}\b|rgba?\(|hsla?\(" app/ components/ to confirm 0 raw color values outside tokens.css.
+Automated token check: confirm 0 direct usages of --palette-* in UI components.
+
+
+8. Assumptions
+The project must be scaffolded directly in the workspace root /Users/omotolaniligali/Desktop/Ship-And-Found-Task alongside existing task folders.
+Development server should run on port 3000.
+The "Get started" button is non-functional at this foundation phase.
+Future architectural folders (server/*, config/, lib/validation/, prisma/, etc.) stay empty using .gitkeep with no feature logic.
+No database, authentication, Stripe, or AI connections are configured in this scaffold step.
+
+
+9. Risks & Mitigations
+Risk: Initializing Next.js in a non-empty directory could prompt or fail if using automated scripts.
+Mitigation: Manually author standard package.json, tsconfig.json, and next.config.mjs and execute npm install directly.
+Risk: Port 3000 might already be occupied.
+Mitigation: Verify port 3000 is open before running the dev server.
+STOPPING HERE. I will not create or modify any files until you reply "approved".
+
+Assumptions:
+
+The project must be scaffolded directly in the workspace root /Users/omotolaniligali/Desktop/Ship-And-Found-Task alongside existing task folders.
+Development server should run on port 3000.
+The "Get started" button is non-functional at this foundation phase.
+Future architectural folders (server/*, config/, lib/validation/, prisma/, etc.) stay empty using .gitkeep with no feature logic.
+No database, authentication, Stripe, or AI connections are configured in this scaffold step.

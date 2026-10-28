@@ -1,0 +1,35 @@
+Files and folders created for Task 2 Scaffold:
+
+1. Root Configuration & Dependencies:
+- package.json
+- tsconfig.json
+- next.config.mjs
+- package-lock.json
+
+2. Design Tokens & Styling:
+- app/tokens.css (copied from task-01-design-system/demo/tokens.css)
+- app/globals.css
+
+3. Application UI & Layout:
+- app/layout.tsx
+- app/page.tsx
+- components/Navbar.tsx
+- components/Footer.tsx
+
+4. Architectural Folders & Placeholders (.gitkeep):
+- server/actions/.gitkeep
+- server/services/.gitkeep
+- server/data/.gitkeep
+- server/ai/.gitkeep
+- server/email/.gitkeep
+- server/payments/.gitkeep
+- config/.gitkeep
+- lib/validation/.gitkeep
+- prisma/.gitkeep
+- prisma/seed/.gitkeep
+- prisma/seed/documents/.gitkeep
+- scripts/.gitkeep
+- tests/unit/.gitkeep
+- tests/integration/.gitkeep
+- tests/e2e/.gitkeep
+- tests/eval/.gitkeep

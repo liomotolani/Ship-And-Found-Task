@@ -22,7 +22,8 @@ task builds on the last.
 
 What works today: A design system in Figma, exported as tokens
 and converted to CSS variables, and one static welcome screen that uses
-it. There is no running application, database or login yet.
+it. 
+There is a running application with database and enviroment variables. Get the details in the Get started part of this project.
 
 ## 3. Stack
 
@@ -37,18 +38,16 @@ it. There is no running application, database or login yet.
 
 Requirements: Node.js [version, check with `node -v`], Git.
 
-```
+
 git clone https://github.com/liomotolani/Ship-And-Found-Task
-cd Ship-And-Found-Task
-cd task-01-design-system
-```
-
-Then open `demo/with-system/index.html` in a browser.
-
-In task 2, I will replace this with the commands to install and run the app.
+cd https://github.com/liomotolani/Ship-And-Found-Task/app
+npm install
+cp .env.example .env
+# edit .env and set DATABASE_URL (see Environment variables)
+npx prisma migrate dev
+npm run dev
 
 ## 5. Environment variables
-None yet. The app has no database, email or secrets until Task 2.
 
 | Name           | What it is for                     |
 |----------------|------------------------------------|

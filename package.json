@@ -1,0 +1,27 @@
+{
+  "name": "vetreply",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start --port 3000",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "7.10.1",
+    "@prisma/client": "7.10.1",
+    "next": "^15.2.0",
+    "pg": "8.23.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "prisma": "7.10.1",
+    "typescript": "^5.8.0"
+  }
+}

@@ -36,15 +36,25 @@ There is a running application with database and enviroment variables. Get the d
 
 ## 4. Getting started
 
-Requirements: Node.js [version, check with `node -v`], Git.
+Requirements: 
 
+Node.js [version, check with `node -v`]
+
+Git.
+
+# Instructions
 
 git clone https://github.com/liomotolani/Ship-And-Found-Task
+
 cd https://github.com/liomotolani/Ship-And-Found-Task/app
+
 npm install
+
 cp .env.example .env
-# edit .env and set DATABASE_URL (see Environment variables)
+
+### edit .env and set DATABASE_URL (see Environment variables)
 npx prisma migrate dev
+
 npm run dev
 
 ## 5. Environment variables

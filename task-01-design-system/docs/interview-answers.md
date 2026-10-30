@@ -35,7 +35,7 @@ Keep the role names fixed and swap what they point at.
 
 A theme decides which tones the roles use. In light mode, `--color-primary` points at primary 40 and `--color-surface` at neutral 99. In dark mode, the same roles point at primary 80 and a very dark neutral tone, around 6 to 10. This works because each palette has 14 tones, so light and dark both come from one source colour.
 
-A brand decides which palette the primitives contain. In CSS I would scope these with attributes, for example `[data-theme="dark"]` redefining the roles and `[data-brand="clinic-b"]` redefining the primitives. Components never change, because they only use roles.
+A brand decides which palette the primitives contain. In CSS I would scope these with attributes, for example `data-theme="dark"` redefining the roles and `data-brand="clinic-b"` redefining the primitives. Components never change, because they only use roles.
 
 For VetReply this matters if several clinics use it, each with its own brand colour. Each clinic's colour would be pinned as primary 40 and a palette generated around it.
 

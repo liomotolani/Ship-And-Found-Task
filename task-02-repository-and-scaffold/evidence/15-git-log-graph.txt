@@ -1,0 +1,58 @@
+*   ce3661a Merge pull request #7 from liomotolani/information-design
+|\  
+| * f289f52 Task 2: Fix Information design section
+|/  
+* 9729005 Add before  head information design  changes
+*   58ea8dc Merge pull request #5 from liomotolani/task-02-repository-and-scaffold
+|\  
+| *   23f0776 Merge branch 'main' into task-02-repository-and-scaffold
+| |\  
+| |/  
+|/|   
+* | dc4ffac Correct Readme
+* | fb80e81 Fix Readme
+* | 94989c5 Update Readme
+* | 67caa28 Fix readme.md
+* |   3534fe3 Merge pull request #4 from liomotolani/task-02-repository-and-scaffold
+|\ \  
+| | * 37f8464 Task 2: Added readme test and picture for working tree
+| | * 85dc418 Task 2: working tree notes
+| |/  
+| * c99865b Task 2: Update Readme
+| * 7f0d316 Task 2: database form, write proof and false success
+| * e61640e Task 2: three server breakages and recoveries
+| * cd5e1c9 Task 2: server start and first load timing
+| * cfeb769 Task 2: scaffold VetReply with Antigravity
+| * ebd3cfc Task 2: scaffold prompt, first draft and final
+| * ca87e15 Untrack files matching .gitignore
+| * 75418aa Add documents to gitignore
+| * c8f8fb1 Task 2: Initial Set up
+|/  
+*   caf5e76 Merge pull request #3 from liomotolani/task-01-design-system
+|\  
+| * 249ec9e Task 1 : Finishing touches
+| * 887f87a Task 1: Answer Interview questions
+| * 4a811e3 Fix: build shadows from primary colour instead of black
+| * 2f4623e Add new evidence and update Readme.md
+|/  
+* d388cc3 Task 1: Break the css variable on purpose
+* 7c37534 Initial Root Readme.md content added
+*   3a5ecf0 Merge pull request #2 from liomotolani/task-01-design-system
+|\  
+| * 2154ced Fix Readme file
+* | ac20d68 Merge pull request #1 from liomotolani/task-01-design-system
+|\| 
+| * a1afae9 Task 1: screen built with and without design system
+| * c86520b Task 1: JSON to CSS token script
+| * 65e42d2 Task 1: token exports, incomplete and complete
+| * 4bf79a1 Task 1: shadow system
+| * dcb25de Task 1: typography scale and divergences
+| * 99856b7 Task 1: colour system and contrast ratios
+|/  
+* 42009e8 initial commit
+
+Commits over the last 3 days
+  4 2026-10-26
+  19 2026-10-27
+   8 2026-10-28
+   7 2026-10-30

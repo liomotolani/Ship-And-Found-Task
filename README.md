@@ -84,3 +84,5 @@ npm run dev
 | Shadows built from a neutral colour instead of the brand colour (found and fixed) | task-01-design-system/demo/tokens.css | It would mean shadows never follow a rebrand, because they are not connected to the brand colour at all. Worse, the docs would have said the shadows were brand-coloured when they were not, so anyone trusting the docs would be misled.|
 
 Full details in each task's docs/defects.md.
+
+Pull Request Link : https://github.com/liomotolani/Ship-And-Found-Task/pull/7

@@ -14,6 +14,9 @@ export default function Navbar() {
       <a
         href="/"
         style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.5rem',
           fontFamily: 'var(--type-title-medium-font-family)',
           fontSize: 'var(--type-title-medium-size)',
           fontWeight: 'var(--type-title-medium-weight)',
@@ -23,6 +26,13 @@ export default function Navbar() {
           textDecoration: 'none',
         }}
       >
+        <img
+          src="/icon.svg"
+          alt=""
+          width={32}
+          height={32}
+          style={{ display: 'block', width: '2rem', height: '2rem' }}
+        />
         VetReply
       </a>
       <nav aria-label="Main Navigation">

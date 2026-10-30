@@ -1,0 +1,32 @@
+=== Title BEFORE ===
+Fri Oct 30 13:46:25 GMT 2026
+/: <title>VetReply</title>
+/enquiries: <title>VetReply</title>
+
+=== Route: / ===
+--- Title ---
+<title>VetReply</title>
+--- Description (tagline) ---
+<meta name="description" content="AI-assisted reply workflow for veterinary clinics"/>
+--- SEO tags ---
+(none)
+--- Favicon ---
+(none)
+--- Open Graph ---
+(none)
+--- Twitter card ---
+(none)
+
+=== Route: /enquiries ===
+--- Title ---
+<title>VetReply</title>
+--- Description (tagline) ---
+<meta name="description" content="AI-assisted reply workflow for veterinary clinics"/>
+--- SEO tags ---
+<meta name="robots" content="noindex"/>
+--- Favicon ---
+(none)
+--- Open Graph ---
+(none)
+--- Twitter card ---
+(none)

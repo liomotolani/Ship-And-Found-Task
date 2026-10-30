@@ -12,8 +12,11 @@ const sourceSans3 = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: 'VetReply',
-  description: 'AI-assisted reply workflow for veterinary clinics',
+  metadataBase: new URL(process.env.APP_BASE_URL ?? 'http://localhost:3000'),
+  title: {
+    default: 'VetReply',
+    template: '%s | VetReply',
+  },
 };
 
 export default function RootLayout({

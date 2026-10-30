@@ -8,17 +8,19 @@ const eyebrow: CSSProperties = {
   letterSpacing: 'var(--type-label-large-letter-spacing)',
   color: 'var(--color-primary)',
   textTransform: 'uppercase',
-  marginBottom: '1rem',
+  marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
 };
 
 const heading: CSSProperties = {
   fontFamily: 'var(--type-display-medium-font-family)',
-  fontSize: 'var(--type-display-medium-size)',
+  fontSize: 'clamp(2rem, 5vw, var(--type-display-medium-size))',
   fontWeight: 'var(--type-display-medium-weight)',
-  lineHeight: 'var(--type-display-medium-line-height)',
+  lineHeight: 1.4,
   letterSpacing: 'var(--type-display-medium-letter-spacing)',
   color: 'var(--color-on-background)',
-  marginBottom: '1.5rem',
+  maxWidth: '24ch',
+  textWrap: 'balance',
+  marginBottom: 'clamp(1rem, 3vw, 1.5rem)',
 };
 
 const body: CSSProperties = {
@@ -29,7 +31,7 @@ const body: CSSProperties = {
   letterSpacing: 'var(--type-body-large-letter-spacing)',
   color: 'var(--color-on-surface-variant)',
   maxWidth: '34rem',
-  marginBottom: '2rem',
+  marginBottom: 'clamp(1.5rem, 4vw, 2rem)',
 };
 
 const primaryButton: CSSProperties = {
@@ -44,7 +46,7 @@ const primaryButton: CSSProperties = {
   backgroundColor: 'var(--color-primary)',
   color: 'var(--color-on-primary)',
   padding: '0.875rem 2rem',
-  borderRadius: '8px',
+  borderRadius: '0.5rem',
   border: 'none',
   cursor: 'pointer',
   boxShadow: 'var(--shadow-soft)',
@@ -62,8 +64,8 @@ const secondaryButton: CSSProperties = {
   letterSpacing: 'var(--type-label-large-letter-spacing)',
   backgroundColor: 'transparent',
   color: 'var(--color-on-primary-container)',
-  padding: '0.875rem 1.5rem',
-  borderRadius: '8px',
+  padding: '0.875rem 2rem',
+  borderRadius: '0.5rem',
   border: '1px solid var(--color-outline-variant)',
   cursor: 'pointer',
   textDecoration: 'none',
@@ -118,7 +120,7 @@ export default function Hero() {
       style={{
         backgroundColor: 'var(--color-background)',
         borderBottom: '1px solid var(--color-outline-variant)',
-        padding: '4rem 1.5rem',
+        padding: 'clamp(2.5rem, 6vw, 4rem) clamp(1rem, 4vw, 1.5rem)',
       }}
     >
       <div
@@ -128,7 +130,7 @@ export default function Hero() {
           display: 'flex',
           flexWrap: 'wrap',
           alignItems: 'center',
-          gap: '3rem',
+          gap: 'clamp(1.5rem, 5vw, 3rem)',
         }}
       >
         <div style={{ flex: '1 1 420px', minWidth: 0 }}>
@@ -142,9 +144,9 @@ export default function Hero() {
             before it reaches a client.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
-            <button type="button" style={primaryButton}>
+            <a href="/sign-up" style={primaryButton}>
               Get started
-            </button>
+            </a>
             <a href="#how-it-works" style={secondaryButton}>
               See how it works
             </a>
@@ -152,7 +154,7 @@ export default function Hero() {
           <p
             style={{
               ...labelLarge,
-              marginTop: '1.5rem',
+              marginTop: 'clamp(1rem, 3vw, 1.5rem)',
               color: 'var(--color-on-surface-variant)',
             }}
           >
@@ -167,7 +169,7 @@ export default function Hero() {
               backgroundColor: 'var(--color-primary-container)',
               border: '1px solid var(--color-primary-fixed-dim)',
               borderRadius: '24px',
-              padding: '1.5rem',
+              padding: 'clamp(1rem, 3vw, 1.5rem)',
               boxShadow: 'var(--shadow-medium)',
             }}
           >
@@ -176,7 +178,7 @@ export default function Hero() {
                 backgroundColor: 'var(--color-surface-container-lowest)',
                 border: '1px solid var(--color-outline-variant)',
                 borderRadius: '16px',
-                padding: '1.5rem',
+                padding: 'clamp(1rem, 3vw, 1.5rem)',
               }}
             >
               <div

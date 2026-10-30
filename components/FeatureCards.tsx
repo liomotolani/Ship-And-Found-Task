@@ -16,9 +16,9 @@ const labelLarge: CSSProperties = {
 
 const titleLarge: CSSProperties = {
   fontFamily: 'var(--type-title-large-font-family)',
-  fontSize: 'var(--type-title-large-size)',
+  fontSize: 'clamp(1.25rem, 2.2vw, var(--type-title-large-size))',
   fontWeight: 'var(--type-title-large-weight)',
-  lineHeight: 'var(--type-title-large-line-height)',
+  lineHeight: 1.5,
   letterSpacing: 'var(--type-title-large-letter-spacing)',
   color: 'var(--color-on-background)',
   marginBottom: '0.5rem',
@@ -138,7 +138,7 @@ export default function FeatureCards() {
       aria-labelledby="features-heading"
       style={{
         backgroundColor: 'var(--color-surface-container-low)',
-        padding: '4rem 1.5rem',
+        padding: 'clamp(2.5rem, 6vw, 4rem) clamp(1rem, 4vw, 1.5rem)',
       }}
     >
       <div style={{ maxWidth: '1120px', margin: '0 auto' }}>
@@ -156,13 +156,13 @@ export default function FeatureCards() {
           id="features-heading"
           style={{
             fontFamily: 'var(--type-headline-large-font-family)',
-            fontSize: 'var(--type-headline-large-size)',
+            fontSize: 'clamp(1.75rem, 3.5vw, var(--type-headline-large-size))',
             fontWeight: 'var(--type-headline-large-weight)',
-            lineHeight: 'var(--type-headline-large-line-height)',
+            lineHeight: 1.5,
             letterSpacing: 'var(--type-headline-large-letter-spacing)',
             color: 'var(--color-on-background)',
             maxWidth: '36rem',
-            marginBottom: '2.5rem',
+            marginBottom: 'clamp(1.5rem, 4vw, 2.5rem)',
           }}
         >
           Confident replies, without the guesswork.
@@ -172,7 +172,7 @@ export default function FeatureCards() {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 17rem), 1fr))',
-            gap: '1.5rem',
+            gap: 'clamp(1rem, 3vw, 1.5rem)',
           }}
         >
           {features.map((feature) => (
@@ -182,7 +182,7 @@ export default function FeatureCards() {
                 backgroundColor: 'var(--color-surface-container-lowest)',
                 border: '1px solid var(--color-outline-variant)',
                 borderRadius: '16px',
-                padding: '1.75rem',
+                padding: 'clamp(1.25rem, 3vw, 1.75rem)',
                 boxShadow: 'var(--shadow-soft)',
               }}
             >
@@ -196,7 +196,7 @@ export default function FeatureCards() {
                   borderRadius: '12px',
                   backgroundColor: 'var(--color-primary-container)',
                   color: 'var(--color-primary)',
-                  marginBottom: '1.25rem',
+                  marginBottom: 'clamp(0.75rem, 2vw, 1.25rem)',
                 }}
               >
                 {feature.icon}

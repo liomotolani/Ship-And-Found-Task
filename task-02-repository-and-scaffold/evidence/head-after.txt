@@ -1,0 +1,36 @@
+
+=== Route: / ===
+--- Title ---
+<title>VetReply — Veterinary replies with sources</title>
+--- Description (tagline) ---
+<meta name="description" content="Grounded veterinary reply assistant"/>
+--- SEO tags ---
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="http://localhost:3000"/>
+--- Favicon ---
+<link rel="icon" href="/icon.svg?3af0afbfd4e51cb1" type="image/svg+xml" sizes="any"/>
+--- Open Graph ---
+<meta property="og:title" content="VetReply — Veterinary replies with sources"/>
+<meta property="og:description" content="Grounded veterinary reply assistant"/>
+<meta property="og:url" content="http://localhost:3000"/>
+<meta property="og:site_name" content="VetReply"/>
+<meta property="og:locale" content="en_GB"/>
+<meta property="og:type" content="website"/>
+--- Twitter card ---
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="VetReply — Veterinary replies with sources"/>
+<meta name="twitter:description" content="Grounded veterinary reply assistant"/>
+
+=== Route: /enquiries ===
+--- Title ---
+<title>VetReply</title>
+--- Description (tagline) ---
+(none)
+--- SEO tags ---
+<meta name="robots" content="noindex"/>
+--- Favicon ---
+<link rel="icon" href="/icon.svg?3af0afbfd4e51cb1" type="image/svg+xml" sizes="any"/>
+--- Open Graph ---
+(none)
+--- Twitter card ---
+(none)

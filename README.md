@@ -42,7 +42,11 @@ Node.js [version, check with `node -v`]
 
 Git.
 
-### Instructions
+Docker
+
+Postgresql 
+
+Instructions:
 
 git clone https://github.com/liomotolani/Ship-And-Found-Task
 
@@ -54,7 +58,7 @@ npm install
 
 cp .env.example .env 
 
-edit .env and set DATABASE_URL (see Environment variables)
+edit .env by setting the DATABASE_URL (see Environment variables)
 
 npx prisma migrate dev
 
@@ -64,7 +68,7 @@ npm run dev
 
 | Name           | What it is for                     |
 |----------------|------------------------------------|
-| DATABASE_URL   | Connection string for the database |
+| DATABASE_URL   | postgresql://vetreply:vetreply@localhost:5433/vetreply?schema=public  |
 
 
 ## 6. What this deliberately does not do

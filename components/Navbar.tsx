@@ -11,7 +11,8 @@ export default function Navbar() {
         boxShadow: 'var(--shadow-soft)',
       }}
     >
-      <div
+      <a
+        href="/"
         style={{
           fontFamily: 'var(--type-title-medium-font-family)',
           fontSize: 'var(--type-title-medium-size)',
@@ -19,10 +20,11 @@ export default function Navbar() {
           lineHeight: 'var(--type-title-medium-line-height)',
           letterSpacing: 'var(--type-title-medium-letter-spacing)',
           color: 'var(--color-primary)',
+          textDecoration: 'none',
         }}
       >
         VetReply
-      </div>
+      </a>
       <nav aria-label="Main Navigation">
         <ul
           style={{
@@ -35,50 +37,25 @@ export default function Navbar() {
         >
           <li>
             <a
-              href="/home"
+              href="/sign-up"
               style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 fontFamily: 'var(--type-label-large-font-family)',
                 fontSize: 'var(--type-label-large-size)',
                 fontWeight: 'var(--type-label-large-weight)',
                 lineHeight: 'var(--type-label-large-line-height)',
                 letterSpacing: 'var(--type-label-large-letter-spacing)',
-                color: 'var(--color-on-surface-variant)',
+                backgroundColor: 'var(--color-primary)',
+                color: 'var(--color-on-primary)',
+                padding: '0.75rem 1.25rem',
+                borderRadius: '0.5rem',
                 textDecoration: 'none',
+                boxShadow: 'var(--shadow-soft)',
               }}
             >
-              Home
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              style={{
-                fontFamily: 'var(--type-label-large-font-family)',
-                fontSize: 'var(--type-label-large-size)',
-                fontWeight: 'var(--type-label-large-weight)',
-                lineHeight: 'var(--type-label-large-line-height)',
-                letterSpacing: 'var(--type-label-large-letter-spacing)',
-                color: 'var(--color-on-surface-variant)',
-                textDecoration: 'none',
-              }}
-            >
-              About
-            </a>
-          </li>
-          <li>
-            <a
-              href="/enquiries/new"
-              style={{
-                fontFamily: 'var(--type-label-large-font-family)',
-                fontSize: 'var(--type-label-large-size)',
-                fontWeight: 'var(--type-label-large-weight)',
-                lineHeight: 'var(--type-label-large-line-height)',
-                letterSpacing: 'var(--type-label-large-letter-spacing)',
-                color: 'var(--color-on-surface-variant)',
-                textDecoration: 'none',
-              }}
-            >
-              My enquiries
+              Get started
             </a>
           </li>
         </ul>

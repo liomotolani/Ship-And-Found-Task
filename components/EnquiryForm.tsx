@@ -71,7 +71,7 @@ const submitButton: CSSProperties = {
   backgroundColor: 'var(--color-primary)',
   color: 'var(--color-on-primary)',
   padding: '0.875rem 2rem',
-  borderRadius: '8px',
+  borderRadius: '0.5rem',
   border: 'none',
   cursor: 'pointer',
   boxShadow: 'var(--shadow-soft)',

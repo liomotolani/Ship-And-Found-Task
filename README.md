@@ -68,7 +68,7 @@ npm run dev
 
 | Name           | What it is for                     |
 |----------------|------------------------------------|
-| DATABASE_URL   | postgresql://vetreply:vetreply@localhost:5433/vetreply?schema=public  |
+| DATABASE_URL   | postgresql://databasename:password@localhost:port/databasename?schema=public  |
 
 
 ## 6. What this deliberately does not do

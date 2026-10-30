@@ -36,24 +36,40 @@ There is a running application with database and enviroment variables. Get the d
 
 ## 4. Getting started
 
-Requirements: Node.js [version, check with `node -v`], Git.
+Requirements: 
 
+Node.js [version, check with `node -v`]
+
+Git.
+
+Docker
+
+Postgresql 
+
+Instructions:
 
 git clone https://github.com/liomotolani/Ship-And-Found-Task
-cd https://github.com/liomotolani/Ship-And-Found-Task/app
+
+Open cloned folder in any IDE of choice
+
+Open terminal
+
 npm install
-cp .env.example .env
-# edit .env and set DATABASE_URL (see Environment variables)
+
+cp .env.example .env 
+
+edit .env by setting the DATABASE_URL (see Environment variables)
+
 npx prisma migrate dev
+
 npm run dev
 
 ## 5. Environment variables
 
 | Name           | What it is for                     |
 |----------------|------------------------------------|
-| DATABASE_URL   | Connection string for the database will be added in task 2. |
+| DATABASE_URL   | postgresql://vetreply:vetreply@localhost:5433/vetreply?schema=public  |
 
-Values are never committed. Copy `.env.example` to `.env` and fill it in.
 
 ## 6. What this deliberately does not do
 - It does not send replies automatically. Every draft needs staff

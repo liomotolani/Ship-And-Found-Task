@@ -1,0 +1,9 @@
+=== Pages before ===
+
+/home
+/sign-up
+/sign-in
+/forgot-password
+/enquiries/new
+/reset-password
+/confirm-email

@@ -1,0 +1,7 @@
+=== Pages after ===
+
+/home
+/auth?
+/enquiries/new
+/reset-password
+/confirm-email

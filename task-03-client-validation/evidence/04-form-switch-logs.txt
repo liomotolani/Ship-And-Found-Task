@@ -1,0 +1,3 @@
+GET /auth?form=signup 200 in 1413ms
+GET /auth?form=signin 200 in 121ms
+GET /auth?form=forgot 200 in 73ms

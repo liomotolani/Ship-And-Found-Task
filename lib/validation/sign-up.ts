@@ -23,9 +23,12 @@ export const signUpSchema = z.object({
       .min(1, 'Password is required.')
       .min(12, 'Use at least 12 characters.'),
   ),
-  age: z
+  terms: z
     .boolean()
-    .refine((value) => value === true, 'I am 18 or over is required.'),
+    .refine(
+      (value) => value === true,
+      'Please confirm that you have read and agree to the terms and conditions.',
+    ),
 });
 
 export type SignUpInput = z.infer<typeof signUpSchema>;

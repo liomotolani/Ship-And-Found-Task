@@ -144,7 +144,7 @@ export default function Hero() {
             before it reaches a client.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
-            <a href="/sign-up" style={primaryButton}>
+            <a href="/auth?form=signup" style={primaryButton}>
               Get started
             </a>
             <a href="#how-it-works" style={secondaryButton}>

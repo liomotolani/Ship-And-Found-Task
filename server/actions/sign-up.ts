@@ -5,7 +5,12 @@ import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import { signUpSchema } from '@/lib/validation/sign-up';
 
-export type SignUpField = 'name' | 'email' | 'password' | 'terms';
+export type SignUpField =
+  | 'name'
+  | 'email'
+  | 'password'
+  | 'membershipNumber'
+  | 'terms';
 
 export type SignUpState = {
   error?: string;
@@ -51,6 +56,7 @@ export async function signUpAction(
     name: formData.get('name'),
     email: formData.get('email'),
     password: formData.get('password'),
+    membershipNumber: formData.get('membershipNumber'),
     terms: formData.get('terms') === 'on',
   });
 

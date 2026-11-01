@@ -86,9 +86,13 @@ export default function SignUpForm() {
     name: (value) => fieldMessage(signUpSchema.shape.name, value),
     email: (value) => fieldMessage(signUpSchema.shape.email, value),
     password: (value) => fieldMessage(signUpSchema.shape.password, value),
+    membershipNumber: (value) =>
+      fieldMessage(signUpSchema.shape.membershipNumber, value),
     terms: (value) => fieldMessage(signUpSchema.shape.terms, value === 'on'),
   });
-  const showError = (field: 'name' | 'email' | 'password' | 'terms') =>
+  const showError = (
+    field: 'name' | 'email' | 'password' | 'membershipNumber' | 'terms',
+  ) =>
     validation.errors[field] ??
     (!validation.touched[field] && state.field === field
       ? state.error
@@ -96,6 +100,7 @@ export default function SignUpForm() {
   const nameError = showError('name');
   const emailError = showError('email');
   const passwordError = showError('password');
+  const membershipNumberError = showError('membershipNumber');
   const termsError = showError('terms');
 
   return (
@@ -182,6 +187,40 @@ export default function SignUpForm() {
         {passwordError ? (
           <p id="password-error" role="alert" style={errorText}>
             {passwordError}
+          </p>
+        ) : null}
+      </div>
+
+
+      <div style={{ marginBottom: '1.5rem' }}>
+        <label htmlFor="membershipNumber" style={label}>
+          Membership number
+        </label>
+        <input
+          id="membershipNumber"
+          name="membershipNumber"
+          type="text"
+          style={input}
+          onBlur={(event) =>
+            validation.handleBlur(
+              'membershipNumber',
+              event.currentTarget.value,
+            )
+          }
+          onChange={(event) =>
+            validation.handleChange(
+              'membershipNumber',
+              event.currentTarget.value,
+            )
+          }
+          aria-invalid={membershipNumberError ? true : undefined}
+          aria-describedby={
+            membershipNumberError ? 'membershipNumber-error' : undefined
+          }
+        />
+        {membershipNumberError ? (
+          <p id="membershipNumber-error" role="alert" style={errorText}>
+            {membershipNumberError}
           </p>
         ) : null}
       </div>

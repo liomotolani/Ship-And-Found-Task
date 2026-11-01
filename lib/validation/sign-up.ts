@@ -24,6 +24,10 @@ export const signUpSchema = z.object({
       .min(1, 'Password is required.')
       .min(12, 'Use at least 12 characters.'),
   ),
+  membershipNumber: z.preprocess(
+    (value) => (typeof value === 'string' ? value.trim() : ''),
+    z.string().min(1, 'Membership number is required.'),
+  ),
   terms: z
     .boolean()
     .refine(

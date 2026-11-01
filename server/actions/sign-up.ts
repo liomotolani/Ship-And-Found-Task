@@ -5,7 +5,12 @@ import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import { signUpSchema } from '@/lib/validation/sign-up';
 
-export type SignUpField = 'name' | 'email' | 'password' | 'age';
+export type SignUpField =
+  | 'name'
+  | 'email'
+  | 'password'
+  | 'membershipNumber'
+  | 'terms';
 
 export type SignUpState = {
   error?: string;
@@ -51,7 +56,8 @@ export async function signUpAction(
     name: formData.get('name'),
     email: formData.get('email'),
     password: formData.get('password'),
-    age: formData.get('age') === 'on',
+    membershipNumber: formData.get('membershipNumber'),
+    terms: formData.get('terms') === 'on',
   });
 
   if (!result.success) {
@@ -69,6 +75,7 @@ export async function signUpAction(
         name: result.data.name,
         email: result.data.email,
         password: result.data.password,
+        callbackURL: '/confirm-email',
       },
       headers: requestHeaders,
     });

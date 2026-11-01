@@ -1,4 +1,12 @@
-export default function Navbar() {
+import { headers } from 'next/headers';
+import { auth } from '@/lib/auth';
+import { signOutAction } from '@/server/actions/sign-out';
+
+export default async function Navbar() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   return (
     <header
       style={{
@@ -46,27 +54,49 @@ export default function Navbar() {
           }}
         >
           <li>
-            <a
-              href="/sign-up"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontFamily: 'var(--type-label-large-font-family)',
-                fontSize: 'var(--type-label-large-size)',
-                fontWeight: 'var(--type-label-large-weight)',
-                lineHeight: 'var(--type-label-large-line-height)',
-                letterSpacing: 'var(--type-label-large-letter-spacing)',
-                backgroundColor: 'var(--color-primary)',
-                color: 'var(--color-on-primary)',
-                padding: '0.75rem 1.25rem',
-                borderRadius: '0.5rem',
-                textDecoration: 'none',
-                boxShadow: 'var(--shadow-soft)',
-              }}
-            >
-              Get started
-            </a>
+            {session ? (
+              <form action={signOutAction}>
+                <button
+                  type="submit"
+                  style={{
+                    fontFamily: 'var(--type-label-large-font-family)',
+                    fontSize: 'var(--type-label-large-size)',
+                    fontWeight: 'var(--type-label-large-weight)',
+                    lineHeight: 'var(--type-label-large-line-height)',
+                    letterSpacing: 'var(--type-label-large-letter-spacing)',
+                    color: 'var(--color-on-surface-variant)',
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: '0.5rem 0',
+                  }}
+                >
+                  Sign out
+                </button>
+              </form>
+            ) : (
+              <a
+                href="/auth?form=signup"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontFamily: 'var(--type-label-large-font-family)',
+                  fontSize: 'var(--type-label-large-size)',
+                  fontWeight: 'var(--type-label-large-weight)',
+                  lineHeight: 'var(--type-label-large-line-height)',
+                  letterSpacing: 'var(--type-label-large-letter-spacing)',
+                  backgroundColor: 'var(--color-primary)',
+                  color: 'var(--color-on-primary)',
+                  padding: '0.75rem 1.25rem',
+                  borderRadius: '0.5rem',
+                  textDecoration: 'none',
+                  boxShadow: 'var(--shadow-soft)',
+                }}
+              >
+                Get started
+              </a>
+            )}
           </li>
         </ul>
       </nav>

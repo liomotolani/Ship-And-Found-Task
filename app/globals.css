@@ -18,3 +18,14 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+
+:focus-visible {
+  outline: 3px solid var(--color-on-background);
+  outline-offset: 2px;
+}
+
+.primary-focus:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--color-on-primary),
+    var(--shadow-soft) !important;
+}

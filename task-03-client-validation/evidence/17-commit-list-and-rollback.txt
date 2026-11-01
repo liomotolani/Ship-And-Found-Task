@@ -1,0 +1,14 @@
+$ git log --oneline -10
+8d0f41f Task 3 : Mistakenly Remove Sign up button
+dddb7fc Task 3: form attack and direct request
+752189b Task 3: password rules and disabled button
+fc2e306 Task 3: accessibility audit and fixes
+ec354f3 Task 3: remove sensitive format hint
+55b397d Task 3: text input instead of number input for Membership number
+d868ea8 Task 3: four categories of client-side validation
+1d1a584 Task 3: field justification, terms, remove decoration
+792d7fe Task 3: create folder structure
+7bcc0b9 Fix readme
+
+Chosen commit: dddb7fc24fbfd49d0e4d3e076cdd5ef27f3b723f
+$ git reset --hard dddb7fc24fbfd49d0e4d3e076cdd5ef27f3b723f

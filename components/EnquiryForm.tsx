@@ -2,6 +2,9 @@
 
 import type { CSSProperties, FormEvent } from 'react';
 import { useState } from 'react';
+import { useFieldValidation } from '@/lib/use-field-validation';
+import { enquirySchema } from '@/lib/validation/enquiry';
+import { fieldMessage } from '@/lib/validation/field-message';
 
 type EnquiryFormField = 'petName' | 'question';
 
@@ -82,6 +85,15 @@ export default function EnquiryForm() {
   const [field, setField] = useState<EnquiryFormField>();
   const [saved, setSaved] = useState(false);
   const [pending, setPending] = useState(false);
+  const validation = useFieldValidation({
+    petName: (value) => fieldMessage(enquirySchema.shape.petName, value),
+    question: (value) => fieldMessage(enquirySchema.shape.question, value),
+  });
+  const showError = (name: EnquiryFormField) =>
+    validation.errors[name] ??
+    (!validation.touched[name] && field === name ? error : undefined);
+  const petNameError = showError('petName');
+  const questionError = showError('question');
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -139,12 +151,18 @@ export default function EnquiryForm() {
           type="text"
           maxLength={50}
           style={input}
-          aria-invalid={field === 'petName' ? true : undefined}
-          aria-describedby={field === 'petName' ? 'petName-error' : undefined}
+          onBlur={(event) =>
+            validation.handleBlur('petName', event.currentTarget.value)
+          }
+          onChange={(event) =>
+            validation.handleChange('petName', event.currentTarget.value)
+          }
+          aria-invalid={petNameError ? true : undefined}
+          aria-describedby={petNameError ? 'petName-error' : undefined}
         />
-        {field === 'petName' && error ? (
+        {petNameError ? (
           <p id="petName-error" role="alert" style={errorText}>
-            {error}
+            {petNameError}
           </p>
         ) : null}
       </div>
@@ -161,12 +179,18 @@ export default function EnquiryForm() {
           maxLength={2000}
           rows={8}
           style={input}
-          aria-invalid={field === 'question' ? true : undefined}
-          aria-describedby={field === 'question' ? 'question-error' : undefined}
+          onBlur={(event) =>
+            validation.handleBlur('question', event.currentTarget.value)
+          }
+          onChange={(event) =>
+            validation.handleChange('question', event.currentTarget.value)
+          }
+          aria-invalid={questionError ? true : undefined}
+          aria-describedby={questionError ? 'question-error' : undefined}
         />
-        {field === 'question' && error ? (
+        {questionError ? (
           <p id="question-error" role="alert" style={errorText}>
-            {error}
+            {questionError}
           </p>
         ) : null}
       </div>

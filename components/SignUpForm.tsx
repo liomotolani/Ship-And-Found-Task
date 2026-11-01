@@ -4,6 +4,9 @@ import Link from 'next/link';
 import type { CSSProperties } from 'react';
 import { useActionState } from 'react';
 import { linkRowStyle, linkStyle } from '@/components/form-styles';
+import { useFieldValidation } from '@/lib/use-field-validation';
+import { fieldMessage } from '@/lib/validation/field-message';
+import { signUpSchema } from '@/lib/validation/sign-up';
 import {
   signUpAction,
   type SignUpState,
@@ -79,6 +82,21 @@ export default function SignUpForm() {
     signUpAction,
     initialState,
   );
+  const validation = useFieldValidation({
+    name: (value) => fieldMessage(signUpSchema.shape.name, value),
+    email: (value) => fieldMessage(signUpSchema.shape.email, value),
+    password: (value) => fieldMessage(signUpSchema.shape.password, value),
+    terms: (value) => fieldMessage(signUpSchema.shape.terms, value === 'on'),
+  });
+  const showError = (field: 'name' | 'email' | 'password' | 'terms') =>
+    validation.errors[field] ??
+    (!validation.touched[field] && state.field === field
+      ? state.error
+      : undefined);
+  const nameError = showError('name');
+  const emailError = showError('email');
+  const passwordError = showError('password');
+  const termsError = showError('terms');
 
   return (
     <form action={formAction} noValidate>
@@ -99,12 +117,18 @@ export default function SignUpForm() {
           autoComplete="name"
           maxLength={100}
           style={input}
-          aria-invalid={state.field === 'name' ? true : undefined}
-          aria-describedby={state.field === 'name' ? 'name-error' : undefined}
+          onBlur={(event) =>
+            validation.handleBlur('name', event.currentTarget.value)
+          }
+          onChange={(event) =>
+            validation.handleChange('name', event.currentTarget.value)
+          }
+          aria-invalid={nameError ? true : undefined}
+          aria-describedby={nameError ? 'name-error' : undefined}
         />
-        {state.field === 'name' && state.error ? (
+        {nameError ? (
           <p id="name-error" role="alert" style={errorText}>
-            {state.error}
+            {nameError}
           </p>
         ) : null}
       </div>
@@ -119,14 +143,18 @@ export default function SignUpForm() {
           type="email"
           autoComplete="email"
           style={input}
-          aria-invalid={state.field === 'email' ? true : undefined}
-          aria-describedby={
-            state.field === 'email' ? 'email-error' : undefined
+          onBlur={(event) =>
+            validation.handleBlur('email', event.currentTarget.value)
           }
+          onChange={(event) =>
+            validation.handleChange('email', event.currentTarget.value)
+          }
+          aria-invalid={emailError ? true : undefined}
+          aria-describedby={emailError ? 'email-error' : undefined}
         />
-        {state.field === 'email' && state.error ? (
+        {emailError ? (
           <p id="email-error" role="alert" style={errorText}>
-            {state.error}
+            {emailError}
           </p>
         ) : null}
       </div>
@@ -142,14 +170,18 @@ export default function SignUpForm() {
           autoComplete="new-password"
           minLength={12}
           style={input}
-          aria-invalid={state.field === 'password' ? true : undefined}
-          aria-describedby={
-            state.field === 'password' ? 'password-error' : undefined
+          onBlur={(event) =>
+            validation.handleBlur('password', event.currentTarget.value)
           }
+          onChange={(event) =>
+            validation.handleChange('password', event.currentTarget.value)
+          }
+          aria-invalid={passwordError ? true : undefined}
+          aria-describedby={passwordError ? 'password-error' : undefined}
         />
-        {state.field === 'password' && state.error ? (
+        {passwordError ? (
           <p id="password-error" role="alert" style={errorText}>
-            {state.error}
+            {passwordError}
           </p>
         ) : null}
       </div>
@@ -525,16 +557,20 @@ export default function SignUpForm() {
               cursor: 'pointer',
               flexShrink: 0,
             }}
-            aria-invalid={state.field === 'terms' ? true : undefined}
-            aria-describedby={
-              state.field === 'terms' ? 'terms-error' : undefined
+            onChange={(event) =>
+              validation.handleBlur(
+                'terms',
+                event.currentTarget.checked ? 'on' : '',
+              )
             }
+            aria-invalid={termsError ? true : undefined}
+            aria-describedby={termsError ? 'terms-error' : undefined}
           />
           <span>I have read and agree to the terms and conditions.</span>
         </label>
-        {state.field === 'terms' && state.error ? (
+        {termsError ? (
           <p id="terms-error" role="alert" style={errorText}>
-            {state.error}
+            {termsError}
           </p>
         ) : null}
       </div>

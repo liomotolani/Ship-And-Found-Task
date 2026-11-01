@@ -13,7 +13,7 @@ export const enquirySchema = z.object({
       .string()
       .min(1, 'Your question is required.')
       .min(10, 'Your question must be at least 10 characters.')
-      .max(2000, 'Keep this under 2000 characters.'),
+      .max(2000, 'Keep this under 2,000 characters.'),
   ),
 });
 

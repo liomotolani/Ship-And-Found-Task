@@ -10,6 +10,9 @@ import {
   submitButtonStyle,
   successTextStyle,
 } from '@/components/form-styles';
+import { useFieldValidation } from '@/lib/use-field-validation';
+import { fieldMessage } from '@/lib/validation/field-message';
+import { resetPasswordSchema } from '@/lib/validation/reset-password';
 import {
   resetPasswordAction,
   type ResetPasswordState,
@@ -22,6 +25,15 @@ export default function ResetPasswordForm({ token }: { token: string }) {
     resetPasswordAction,
     initialState,
   );
+  const validation = useFieldValidation({
+    newPassword: (value) =>
+      fieldMessage(resetPasswordSchema.shape.newPassword, value),
+  });
+  const newPasswordError =
+    validation.errors.newPassword ??
+    (!validation.touched.newPassword && state.field === 'newPassword'
+      ? state.error
+      : undefined);
 
   return (
     <form action={formAction} noValidate>
@@ -52,16 +64,26 @@ export default function ResetPasswordForm({ token }: { token: string }) {
               autoComplete="new-password"
               minLength={12}
               style={inputStyle}
-              aria-invalid={state.field === 'newPassword' ? true : undefined}
+              onBlur={(event) =>
+                validation.handleBlur(
+                  'newPassword',
+                  event.currentTarget.value,
+                )
+              }
+              onChange={(event) =>
+                validation.handleChange(
+                  'newPassword',
+                  event.currentTarget.value,
+                )
+              }
+              aria-invalid={newPasswordError ? true : undefined}
               aria-describedby={
-                state.field === 'newPassword'
-                  ? 'newPassword-error'
-                  : undefined
+                newPasswordError ? 'newPassword-error' : undefined
               }
             />
-            {state.field === 'newPassword' && state.error ? (
+            {newPasswordError ? (
               <p id="newPassword-error" role="alert" style={errorTextStyle}>
-                {state.error}
+                {newPasswordError}
               </p>
             ) : null}
           </div>

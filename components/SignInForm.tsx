@@ -10,6 +10,9 @@ import {
   linkStyle,
   submitButtonStyle,
 } from '@/components/form-styles';
+import { useFieldValidation } from '@/lib/use-field-validation';
+import { fieldMessage } from '@/lib/validation/field-message';
+import { signInSchema } from '@/lib/validation/sign-in';
 import {
   signInAction,
   type SignInState,
@@ -22,6 +25,17 @@ export default function SignInForm() {
     signInAction,
     initialState,
   );
+  const validation = useFieldValidation({
+    email: (value) => fieldMessage(signInSchema.shape.email, value),
+    password: (value) => fieldMessage(signInSchema.shape.password, value),
+  });
+  const showError = (field: 'email' | 'password') =>
+    validation.errors[field] ??
+    (!validation.touched[field] && state.field === field
+      ? state.error
+      : undefined);
+  const emailError = showError('email');
+  const passwordError = showError('password');
 
   return (
     <form action={formAction} noValidate>
@@ -41,14 +55,18 @@ export default function SignInForm() {
           type="email"
           autoComplete="email"
           style={inputStyle}
-          aria-invalid={state.field === 'email' ? true : undefined}
-          aria-describedby={
-            state.field === 'email' ? 'email-error' : undefined
+          onBlur={(event) =>
+            validation.handleBlur('email', event.currentTarget.value)
           }
+          onChange={(event) =>
+            validation.handleChange('email', event.currentTarget.value)
+          }
+          aria-invalid={emailError ? true : undefined}
+          aria-describedby={emailError ? 'email-error' : undefined}
         />
-        {state.field === 'email' && state.error ? (
+        {emailError ? (
           <p id="email-error" role="alert" style={errorTextStyle}>
-            {state.error}
+            {emailError}
           </p>
         ) : null}
       </div>
@@ -63,14 +81,18 @@ export default function SignInForm() {
           type="password"
           autoComplete="current-password"
           style={inputStyle}
-          aria-invalid={state.field === 'password' ? true : undefined}
-          aria-describedby={
-            state.field === 'password' ? 'password-error' : undefined
+          onBlur={(event) =>
+            validation.handleBlur('password', event.currentTarget.value)
           }
+          onChange={(event) =>
+            validation.handleChange('password', event.currentTarget.value)
+          }
+          aria-invalid={passwordError ? true : undefined}
+          aria-describedby={passwordError ? 'password-error' : undefined}
         />
-        {state.field === 'password' && state.error ? (
+        {passwordError ? (
           <p id="password-error" role="alert" style={errorTextStyle}>
-            {state.error}
+            {passwordError}
           </p>
         ) : null}
       </div>

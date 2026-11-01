@@ -11,6 +11,9 @@ import {
   submitButtonStyle,
   successTextStyle,
 } from '@/components/form-styles';
+import { useFieldValidation } from '@/lib/use-field-validation';
+import { fieldMessage } from '@/lib/validation/field-message';
+import { forgotPasswordSchema } from '@/lib/validation/forgot-password';
 import {
   forgotPasswordAction,
   type ForgotPasswordState,
@@ -23,6 +26,14 @@ export default function ForgotPasswordForm() {
     forgotPasswordAction,
     initialState,
   );
+  const validation = useFieldValidation({
+    email: (value) => fieldMessage(forgotPasswordSchema.shape.email, value),
+  });
+  const emailError =
+    validation.errors.email ??
+    (!validation.touched.email && state.field === 'email'
+      ? state.error
+      : undefined);
 
   return (
     <form action={formAction} noValidate>
@@ -42,14 +53,18 @@ export default function ForgotPasswordForm() {
           type="email"
           autoComplete="email"
           style={inputStyle}
-          aria-invalid={state.field === 'email' ? true : undefined}
-          aria-describedby={
-            state.field === 'email' ? 'email-error' : undefined
+          onBlur={(event) =>
+            validation.handleBlur('email', event.currentTarget.value)
           }
+          onChange={(event) =>
+            validation.handleChange('email', event.currentTarget.value)
+          }
+          aria-invalid={emailError ? true : undefined}
+          aria-describedby={emailError ? 'email-error' : undefined}
         />
-        {state.field === 'email' && state.error ? (
+        {emailError ? (
           <p id="email-error" role="alert" style={errorTextStyle}>
-            {state.error}
+            {emailError}
           </p>
         ) : null}
       </div>

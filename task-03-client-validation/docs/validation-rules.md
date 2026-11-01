@@ -1,0 +1,1 @@
+Even if VetReply could confirm that an email address exists, that would not show the address belongs to the person signing up, because they could have mistyped it or entered someone else's. The confirmation link proves both at once: if the user can open a link sent to that address within an hour, the address exists and they have access to it.

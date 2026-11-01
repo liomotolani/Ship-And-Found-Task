@@ -1,0 +1,15 @@
+=== Direct request, bypassing the form ===
+Sun Nov  1 19:08:23 GMT 2026
+
+Breaks my rules: name is 1 character, no membership number, terms not accepted.
+
+$ curl -i -X POST http://localhost:3000/api/auth/sign-up/email -H "Content-Type: application/json" -H "Origin: http://localhost:3000" -d '{"name":"a","email":"direct-test-1@example.com","password":"abcdefghijkl"}'
+HTTP/1.1 200 OK
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+content-type: application/json
+Date: Sun, 01 Nov 2026 19:08:25 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"token":null,"user":{"name":"a","email":"direct-test-1@example.com","emailVerified":false,"image":null,"createdAt":"2026-11-01T19:08:25.720Z","updatedAt":"2026-11-01T19:08:25.720Z","role":"CLIENT","isActive":true,"id":"FkmV6792NZIwt0uNXtPIRKangzKOFNT7"}}

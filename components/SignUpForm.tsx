@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import ErrorIcon from '@/components/ErrorIcon';
 import type { CSSProperties } from 'react';
 import { useActionState } from 'react';
 import { linkRowStyle, linkStyle } from '@/components/form-styles';
@@ -44,6 +45,9 @@ const errorText: CSSProperties = {
   fontSize: 'var(--type-body-medium-size)',
   fontWeight: 'var(--type-body-medium-weight)',
   lineHeight: 'var(--type-body-medium-line-height)',
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: '0.375rem',
   letterSpacing: 'var(--type-body-medium-letter-spacing)',
   color: 'var(--color-error)',
   marginTop: '0.5rem',
@@ -121,6 +125,8 @@ export default function SignUpForm() {
           type="text"
           autoComplete="name"
           maxLength={100}
+          required
+          aria-required="true"
           style={input}
           onBlur={(event) =>
             validation.handleBlur('name', event.currentTarget.value)
@@ -133,7 +139,8 @@ export default function SignUpForm() {
         />
         {nameError ? (
           <p id="name-error" role="alert" style={errorText}>
-            {nameError}
+            <ErrorIcon />
+            <span>{nameError}</span>
           </p>
         ) : null}
       </div>
@@ -147,6 +154,8 @@ export default function SignUpForm() {
           name="email"
           type="email"
           autoComplete="email"
+          required
+          aria-required="true"
           style={input}
           onBlur={(event) =>
             validation.handleBlur('email', event.currentTarget.value)
@@ -159,7 +168,8 @@ export default function SignUpForm() {
         />
         {emailError ? (
           <p id="email-error" role="alert" style={errorText}>
-            {emailError}
+            <ErrorIcon />
+            <span>{emailError}</span>
           </p>
         ) : null}
       </div>
@@ -174,6 +184,8 @@ export default function SignUpForm() {
           type="password"
           autoComplete="new-password"
           minLength={12}
+          required
+          aria-required="true"
           style={input}
           onBlur={(event) =>
             validation.handleBlur('password', event.currentTarget.value)
@@ -186,7 +198,8 @@ export default function SignUpForm() {
         />
         {passwordError ? (
           <p id="password-error" role="alert" style={errorText}>
-            {passwordError}
+            <ErrorIcon />
+            <span>{passwordError}</span>
           </p>
         ) : null}
       </div>
@@ -200,6 +213,8 @@ export default function SignUpForm() {
           id="membershipNumber"
           name="membershipNumber"
           type="text"
+          required
+          aria-required="true"
           style={input}
           onBlur={(event) =>
             validation.handleBlur(
@@ -220,7 +235,8 @@ export default function SignUpForm() {
         />
         {membershipNumberError ? (
           <p id="membershipNumber-error" role="alert" style={errorText}>
-            {membershipNumberError}
+            <ErrorIcon />
+            <span>{membershipNumberError}</span>
           </p>
         ) : null}
       </div>
@@ -588,6 +604,8 @@ export default function SignUpForm() {
             id="terms"
             name="terms"
             type="checkbox"
+            required
+            aria-required="true"
             style={{
               marginTop: '0.25rem',
               width: '1.125rem',
@@ -602,6 +620,12 @@ export default function SignUpForm() {
                 event.currentTarget.checked ? 'on' : '',
               )
             }
+            onBlur={(event) =>
+              validation.handleBlur(
+                'terms',
+                event.currentTarget.checked ? 'on' : '',
+              )
+            }
             aria-invalid={termsError ? true : undefined}
             aria-describedby={termsError ? 'terms-error' : undefined}
           />
@@ -609,18 +633,20 @@ export default function SignUpForm() {
         </label>
         {termsError ? (
           <p id="terms-error" role="alert" style={errorText}>
-            {termsError}
+            <ErrorIcon />
+            <span>{termsError}</span>
           </p>
         ) : null}
       </div>
 
       {state.error && !state.field ? (
         <p role="alert" style={errorText}>
-          {state.error}
+          <ErrorIcon />
+          <span>{state.error}</span>
         </p>
       ) : null}
 
-      <button type="submit" style={submitButton} disabled={pending}>
+      <button type="submit" className="primary-focus" style={submitButton} disabled={pending}>
         Sign up
       </button>
 

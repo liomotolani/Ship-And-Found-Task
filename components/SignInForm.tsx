@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import {
   errorTextStyle,
   inputStyle,
@@ -10,6 +10,7 @@ import {
   linkStyle,
   submitButtonStyle,
 } from '@/components/form-styles';
+import PasswordVisibilityToggle from '@/components/PasswordVisibilityToggle';
 import { useFieldValidation } from '@/lib/use-field-validation';
 import { fieldMessage } from '@/lib/validation/field-message';
 import { signInSchema } from '@/lib/validation/sign-in';
@@ -36,6 +37,7 @@ export default function SignInForm() {
       : undefined);
   const emailError = showError('email');
   const passwordError = showError('password');
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <form action={formAction} noValidate>
@@ -54,6 +56,8 @@ export default function SignInForm() {
           name="email"
           type="email"
           autoComplete="email"
+          required
+          aria-required="true"
           style={inputStyle}
           onBlur={(event) =>
             validation.handleBlur('email', event.currentTarget.value)
@@ -75,21 +79,29 @@ export default function SignInForm() {
         <label htmlFor="password" style={labelStyle}>
           Password
         </label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          style={inputStyle}
-          onBlur={(event) =>
-            validation.handleBlur('password', event.currentTarget.value)
-          }
-          onChange={(event) =>
-            validation.handleChange('password', event.currentTarget.value)
-          }
-          aria-invalid={passwordError ? true : undefined}
-          aria-describedby={passwordError ? 'password-error' : undefined}
-        />
+        <div style={{ position: 'relative' }}>
+          <input
+            id="password"
+            name="password"
+            type={showPassword ? 'text' : 'password'}
+            autoComplete="current-password"
+            required
+            aria-required="true"
+            style={{ ...inputStyle, paddingRight: '2.75rem' }}
+            onBlur={(event) =>
+              validation.handleBlur('password', event.currentTarget.value)
+            }
+            onChange={(event) =>
+              validation.handleChange('password', event.currentTarget.value)
+            }
+            aria-invalid={passwordError ? true : undefined}
+            aria-describedby={passwordError ? 'password-error' : undefined}
+          />
+          <PasswordVisibilityToggle
+            visible={showPassword}
+            onToggle={() => setShowPassword((current) => !current)}
+          />
+        </div>
         {passwordError ? (
           <p id="password-error" role="alert" style={errorTextStyle}>
             {passwordError}

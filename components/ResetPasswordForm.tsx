@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import {
   errorTextStyle,
   inputStyle,
@@ -10,8 +10,10 @@ import {
   submitButtonStyle,
   successTextStyle,
 } from '@/components/form-styles';
+import PasswordVisibilityToggle from '@/components/PasswordVisibilityToggle';
 import { useFieldValidation } from '@/lib/use-field-validation';
 import { fieldMessage } from '@/lib/validation/field-message';
+import { passwordHint } from '@/lib/validation/password';
 import { resetPasswordSchema } from '@/lib/validation/reset-password';
 import {
   resetPasswordAction,
@@ -34,6 +36,15 @@ export default function ResetPasswordForm({ token }: { token: string }) {
     (!validation.touched.newPassword && state.field === 'newPassword'
       ? state.error
       : undefined);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordHint, setShowPasswordHint] = useState(false);
+  const newPasswordDescribedBy =
+    [
+      showPasswordHint ? 'newPassword-hint' : null,
+      newPasswordError ? 'newPassword-error' : null,
+    ]
+      .filter(Boolean)
+      .join(' ') || undefined;
 
   return (
     <form action={formAction} noValidate>
@@ -57,30 +68,54 @@ export default function ResetPasswordForm({ token }: { token: string }) {
             <label htmlFor="newPassword" style={labelStyle}>
               New password
             </label>
-            <input
-              id="newPassword"
-              name="newPassword"
-              type="password"
-              autoComplete="new-password"
-              minLength={12}
-              style={inputStyle}
-              onBlur={(event) =>
-                validation.handleBlur(
-                  'newPassword',
-                  event.currentTarget.value,
-                )
-              }
-              onChange={(event) =>
-                validation.handleChange(
-                  'newPassword',
-                  event.currentTarget.value,
-                )
-              }
-              aria-invalid={newPasswordError ? true : undefined}
-              aria-describedby={
-                newPasswordError ? 'newPassword-error' : undefined
-              }
-            />
+            <div style={{ position: 'relative' }}>
+              <input
+                id="newPassword"
+                name="newPassword"
+                type={showPassword ? 'text' : 'password'}
+                autoComplete="new-password"
+                minLength={12}
+                required
+                aria-required="true"
+                style={{ ...inputStyle, paddingRight: '2.75rem' }}
+                onFocus={() => setShowPasswordHint(true)}
+                onBlur={(event) => {
+                  setShowPasswordHint(false);
+                  validation.handleBlur(
+                    'newPassword',
+                    event.currentTarget.value,
+                  );
+                }}
+                onChange={(event) =>
+                  validation.handleChange(
+                    'newPassword',
+                    event.currentTarget.value,
+                  )
+                }
+                aria-invalid={newPasswordError ? true : undefined}
+                aria-describedby={newPasswordDescribedBy}
+              />
+              <PasswordVisibilityToggle
+                visible={showPassword}
+                onToggle={() => setShowPassword((current) => !current)}
+              />
+            </div>
+            {showPasswordHint ? (
+              <p
+                id="newPassword-hint"
+                style={{
+                  fontFamily: 'var(--type-body-medium-font-family)',
+                  fontSize: 'var(--type-body-medium-size)',
+                  fontWeight: 'var(--type-body-medium-weight)',
+                  lineHeight: 'var(--type-body-medium-line-height)',
+                  letterSpacing: 'var(--type-body-medium-letter-spacing)',
+                  color: 'var(--color-on-surface-variant)',
+                  marginTop: '0.5rem',
+                }}
+              >
+                {passwordHint}
+              </p>
+            ) : null}
             {newPasswordError ? (
               <p id="newPassword-error" role="alert" style={errorTextStyle}>
                 {newPasswordError}

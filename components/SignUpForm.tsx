@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import ErrorIcon from '@/components/ErrorIcon';
-import type { CSSProperties } from 'react';
-import { useActionState } from 'react';
+import PasswordVisibilityToggle from '@/components/PasswordVisibilityToggle';
+import type { CSSProperties, FormEvent, MouseEvent } from 'react';
+import { useActionState, useState } from 'react';
 import { linkRowStyle, linkStyle } from '@/components/form-styles';
 import { useFieldValidation } from '@/lib/use-field-validation';
 import { fieldMessage } from '@/lib/validation/field-message';
+import { passwordHint } from '@/lib/validation/password';
 import { signUpSchema } from '@/lib/validation/sign-up';
 import {
   signUpAction,
@@ -106,9 +108,87 @@ export default function SignUpForm() {
   const passwordError = showError('password');
   const membershipNumberError = showError('membershipNumber');
   const termsError = showError('terms');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordHint, setShowPasswordHint] = useState(false);
+  const [formValid, setFormValid] = useState(false);
+  const passwordDescribedBy =
+    [
+      showPasswordHint ? 'password-hint' : null,
+      passwordError ? 'password-error' : null,
+    ]
+      .filter(Boolean)
+      .join(' ') || undefined;
+
+  function handleFormInput(event: FormEvent<HTMLFormElement>) {
+    const formData = new FormData(event.currentTarget);
+    const result = signUpSchema.safeParse({
+      name: formData.get('name'),
+      email: formData.get('email'),
+      password: formData.get('password'),
+      membershipNumber: formData.get('membershipNumber'),
+      terms: formData.get('terms') === 'on',
+    });
+
+    setFormValid(result.success);
+  }
+
+  function handleButtonClick(event: MouseEvent<HTMLButtonElement>) {
+    if (pending) {
+      event.preventDefault();
+      return;
+    }
+
+    const form = event.currentTarget.form;
+    if (!form) {
+      return;
+    }
+
+    const formData = new FormData(form);
+    const values = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      password: formData.get('password'),
+      membershipNumber: formData.get('membershipNumber'),
+      terms: formData.get('terms') === 'on',
+    };
+
+    if (!values.terms) {
+      event.preventDefault();
+      setFormValid(false);
+      validation.handleBlur('terms', '');
+      form.querySelector<HTMLElement>('#terms')?.focus();
+      return;
+    }
+
+    const result = signUpSchema.safeParse(values);
+
+    if (result.success) {
+      setFormValid(true);
+      return;
+    }
+
+    event.preventDefault();
+    setFormValid(false);
+    validation.handleBlur('name', String(values.name ?? ''));
+    validation.handleBlur('email', String(values.email ?? ''));
+    validation.handleBlur('password', String(values.password ?? ''));
+    validation.handleBlur(
+      'membershipNumber',
+      String(values.membershipNumber ?? ''),
+    );
+    validation.handleBlur('terms', 'on');
+
+    const firstField = result.error.issues[0]?.path[0];
+    const fieldId =
+      firstField === 'membershipNumber'
+        ? 'membershipNumber'
+        : String(firstField ?? 'name');
+
+    form.querySelector<HTMLElement>(`#${fieldId}`)?.focus();
+  }
 
   return (
-    <form action={formAction} noValidate>
+    <form action={formAction} noValidate onInput={handleFormInput}>
       {state.success ? (
         <p role="status" style={successText}>
           {state.success}
@@ -178,24 +258,48 @@ export default function SignUpForm() {
         <label htmlFor="password" style={label}>
           Password
         </label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          autoComplete="new-password"
-          minLength={12}
-          required
-          aria-required="true"
-          style={input}
-          onBlur={(event) =>
-            validation.handleBlur('password', event.currentTarget.value)
-          }
-          onChange={(event) =>
-            validation.handleChange('password', event.currentTarget.value)
-          }
-          aria-invalid={passwordError ? true : undefined}
-          aria-describedby={passwordError ? 'password-error' : undefined}
-        />
+        <div style={{ position: 'relative' }}>
+          <input
+            id="password"
+            name="password"
+            type={showPassword ? 'text' : 'password'}
+            autoComplete="new-password"
+            minLength={12}
+            required
+            aria-required="true"
+            style={{ ...input, paddingRight: '2.75rem' }}
+            onFocus={() => setShowPasswordHint(true)}
+            onBlur={(event) => {
+              setShowPasswordHint(false);
+              validation.handleBlur('password', event.currentTarget.value);
+            }}
+            onChange={(event) =>
+              validation.handleChange('password', event.currentTarget.value)
+            }
+            aria-invalid={passwordError ? true : undefined}
+            aria-describedby={passwordDescribedBy}
+          />
+          <PasswordVisibilityToggle
+            visible={showPassword}
+            onToggle={() => setShowPassword((current) => !current)}
+          />
+        </div>
+        {showPasswordHint ? (
+          <p
+            id="password-hint"
+            style={{
+              fontFamily: 'var(--type-body-medium-font-family)',
+              fontSize: 'var(--type-body-medium-size)',
+              fontWeight: 'var(--type-body-medium-weight)',
+              lineHeight: 'var(--type-body-medium-line-height)',
+              letterSpacing: 'var(--type-body-medium-letter-spacing)',
+              color: 'var(--color-on-surface-variant)',
+              marginTop: '0.5rem',
+            }}
+          >
+            {passwordHint}
+          </p>
+        ) : null}
         {passwordError ? (
           <p id="password-error" role="alert" style={errorText}>
             <ErrorIcon />
@@ -646,7 +750,18 @@ export default function SignUpForm() {
         </p>
       ) : null}
 
-      <button type="submit" className="primary-focus" style={submitButton} disabled={pending}>
+      <button
+        type="submit"
+        className="primary-focus"
+        style={{
+          ...submitButton,
+          opacity: pending || !formValid ? 0.6 : 1,
+          cursor: pending || !formValid ? 'not-allowed' : 'pointer',
+        }}
+        disabled={pending}
+        aria-disabled={pending || !formValid}
+        onClick={handleButtonClick}
+      >
         Sign up
       </button>
 

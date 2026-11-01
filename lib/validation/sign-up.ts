@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { passwordFieldSchema } from '@/lib/validation/password';
 
 export const signUpSchema = z.object({
   name: z.preprocess(
@@ -17,13 +18,7 @@ export const signUpSchema = z.object({
       .min(1, 'Email is required.')
       .email('Enter a valid email address.'),
   ),
-  password: z.preprocess(
-    (value) => (typeof value === 'string' ? value : ''),
-    z
-      .string()
-      .min(1, 'Password is required.')
-      .min(12, 'Use at least 12 characters.'),
-  ),
+  password: passwordFieldSchema,
   membershipNumber: z.preprocess(
     (value) => (typeof value === 'string' ? value.trim() : ''),
     z.string().min(1, 'Membership number is required.'),

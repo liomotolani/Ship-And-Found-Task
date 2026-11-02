@@ -75,6 +75,7 @@ export async function signUpAction(
         name: result.data.name,
         email: result.data.email,
         password: result.data.password,
+        membershipNumber: result.data.membershipNumber,
         callbackURL: '/confirm-email',
       },
       headers: requestHeaders,

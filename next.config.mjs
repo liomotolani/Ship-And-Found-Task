@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 const nextConfig = {
   reactStrictMode: true,
   outputFileTracingRoot: __dirname,
+  serverExternalPackages: ['@node-rs/argon2'],
 };
 
 export default nextConfig;

@@ -1,6 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { nextCookies } from 'better-auth/next-js';
+import { hashPassword, verifyPassword } from '@/lib/password';
 import { prisma } from '@/server/data/prisma';
 import { getPracticeName } from '@/server/data/practice-settings';
 import { sendEmail } from '@/server/email/send-email';
@@ -18,6 +19,10 @@ export const auth = betterAuth({
     enabled: true,
     requireEmailVerification: true,
     minPasswordLength: 12,
+    password: {
+      hash: hashPassword,
+      verify: verifyPassword,
+    },
     resetPasswordTokenExpiresIn: 60 * 60,
     revokeSessionsOnPasswordReset: true,
     sendResetPassword: async ({ user, url }) => {
@@ -49,6 +54,11 @@ export const auth = betterAuth({
         required: false,
         defaultValue: true,
         input: false,
+      },
+      membershipNumber: {
+        type: 'string',
+        required: true,
+        input: true,
       },
     },
   },

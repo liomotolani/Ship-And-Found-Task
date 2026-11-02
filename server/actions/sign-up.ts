@@ -42,6 +42,7 @@ export async function signUpAction(
   _previousState: SignUpState,
   formData: FormData,
 ): Promise<SignUpState> {
+  const requestStart = performance.now();
   const requestHeaders = await headers();
 
   const session = await auth.api.getSession({
@@ -49,9 +50,13 @@ export async function signUpAction(
   });
 
   if (session) {
+    console.log(
+      `[timing] sign-up total: ${(performance.now() - requestStart).toFixed(1)} ms`,
+    );
     redirect('/');
   }
 
+  const validationStart = performance.now();
   const result = signUpSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
@@ -59,10 +64,16 @@ export async function signUpAction(
     membershipNumber: formData.get('membershipNumber'),
     terms: formData.get('terms') === 'on',
   });
+  console.log(
+    `[timing] sign-up validation: ${(performance.now() - validationStart).toFixed(3)} ms`,
+  );
 
   if (!result.success) {
     const issue = result.error.issues[0];
 
+    console.log(
+      `[timing] sign-up total: ${(performance.now() - requestStart).toFixed(1)} ms`,
+    );
     return {
       error: issue?.message ?? genericError,
       field: issue?.path[0] as SignUpField | undefined,
@@ -82,9 +93,15 @@ export async function signUpAction(
     });
   } catch (error) {
     if (!isUserAlreadyExists(error)) {
+      console.log(
+        `[timing] sign-up total: ${(performance.now() - requestStart).toFixed(1)} ms`,
+      );
       return { error: genericError };
     }
   }
 
+  console.log(
+    `[timing] sign-up total: ${(performance.now() - requestStart).toFixed(1)} ms`,
+  );
   return { success: successMessage };
 }

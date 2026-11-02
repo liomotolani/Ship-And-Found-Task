@@ -1,0 +1,16 @@
+$ npx prisma migrate dev --name payment_attempts
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.
+Datasource "db": PostgreSQL database "vetreply", schema "public" at "localhost:5433"
+
+Applying migration `20261102121308_payment_attempts`
+
+The following migration(s) have been created and applied from new schema changes:
+
+prisma/migrations/
+  └─ 20261102121308_payment_attempts/
+    └─ migration.sql
+
+Your database is now in sync with your schema.
+

@@ -1,0 +1,5 @@
+$ npx tsx --env-file=.env scripts/send-test-email.ts ligaliomotolani2@gmail.com
+Mon Nov  2 18:06:10 GMT 2026
+[email] failed E1 to ligaliomotolani2@gmail.com: EAUTH: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-4ac0a66caefsm234642685e9.5 - gsmtp
+Test email failed.

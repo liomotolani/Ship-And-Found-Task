@@ -1,0 +1,16 @@
+$ npx tsx scripts/time-hash.ts
+Mon Nov  2 13:09:04 GMT 2026
+
+Password: "correct horse battery staple"
+Node v26.11.1, darwin arm64
+
+Argon2id (m=65536, t=3, p=1), average of 20 hashes:
+  78.46 ms per hash
+SHA-256, average of 1,000,000 hashes:
+  0.000493 ms per hash
+
+Guesses per second on this machine, one core (1000 ms / ms per hash):
+  Argon2id: 1000 / 78.46 = 12.7 guesses per second
+  SHA-256:  1000 / 0.000493 = 2,028,890 guesses per second
+
+SHA-256 is 159,188 times faster to guess against.

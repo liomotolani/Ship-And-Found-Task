@@ -1,0 +1,58 @@
+=== App error when submitting the enquiry form (dev server log) ===
+Mon Nov  2 12:38:43 GMT 2026
+19: POST /api/enquiries 500 in 552ms
+
+=== Full dev server log ===
+
+> vetreply@0.1.0 dev
+> next dev --port 3000
+
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.21:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 3s
+ ○ Compiling /enquiries/new ...
+ ✓ Compiled /enquiries/new in 1374ms (1470 modules)
+ GET /enquiries/new 200 in 1989ms
+ ○ Compiling /icon.svg ...
+ ✓ Compiled /icon.svg in 1279ms (1166 modules)
+ GET /icon.svg 200 in 1368ms
+ ✓ Compiled /api/enquiries in 351ms (1492 modules)
+ POST /api/enquiries 500 in 552ms
+ 
+=== After logging the error in app/api/enquiries/route.ts ===
+Mon Nov  2 12:42:06 GMT 2026
+19:Failed to create enquiry: Error [PrismaClientKnownRequestError]: 
+20-Invalid `prisma.enquiry.create()` invocation:
+21-
+22-
+23-The column `Enquiry.driftTest` does not exist in the current database.
+24-    at async POST (app/api/enquiries/route.ts:32:21)
+25-  30 |
+26-  31 |   try {
+27-> 32 |     const enquiry = await createOnlineEnquiry(result.data);
+28-     |                     ^
+29-  33 |     return NextResponse.json({ id: enquiry.id }, { status: 201 });
+30-  34 |   } catch (error) {
+31:  35 |     console.error('Failed to create enquiry:', error); {
+32-  code: 'P2022',
+33-  meta: [Object],
+34-  clientVersion: '7.10.1'
+35-}
+36- POST /api/enquiries 500 in 781ms
+
+=== Fix: removed driftTest from the schema and regenerated the client ===
+Mon Nov  2 12:47:45 GMT 2026
+$ npx prisma generate
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.
+
+✔ Generated Prisma Client (v7.10.1) to ./node_modules/@prisma/client in 136ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+

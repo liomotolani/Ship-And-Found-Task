@@ -1,0 +1,4 @@
+$ npx tsx scripts/send-test-email.ts ligaliomotolani2@gmail.com
+Mon Nov  2 18:06:51 GMT 2026
+[email] sent E1 to ligaliomotolani2@gmail.com.
+Test email sent.

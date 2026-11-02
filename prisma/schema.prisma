@@ -121,10 +121,20 @@ enum PaymentStatus {
   REFUND_FAILED
 }
 
+enum AttemptOutcome {
+  STARTED
+  SUCCEEDED
+  FAILED
+  ABANDONED
+  NETWORK_ERROR
+}
+
 model User {
   id                String         @id
   name              String
   email             String         @unique
+  membershipNumber  String
+  termsAcceptedAt   DateTime?
   emailVerified     Boolean        @default(false)
   role              Role           @default(CLIENT)
   isActive          Boolean        @default(true)
@@ -318,6 +328,7 @@ model Booking {
   cancelReason   String?
   refundDecision RefundDecision?
   payment        Payment?
+  attempts       PaymentAttempt[]
   emails         EmailLog[]
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
@@ -341,8 +352,27 @@ model Payment {
   paidAt                  DateTime?
   refundedAt              DateTime?
   emails                  EmailLog[]
+  attempts                PaymentAttempt[]
   createdAt               DateTime      @default(now())
   updatedAt               DateTime      @updatedAt
+}
+
+model PaymentAttempt {
+  id                      String         @id @default(cuid())
+  bookingId               String
+  booking                 Booking        @relation(fields: [bookingId], references: [id])
+  paymentId               String?
+  payment                 Payment?       @relation(fields: [paymentId], references: [id])
+  amountPence             Int
+  outcome                 AttemptOutcome @default(STARTED)
+  failureReason           String?
+  stripeCheckoutSessionId String?
+  stripePaymentIntentId   String?
+  startedAt               DateTime       @default(now())
+  endedAt                 DateTime?
+
+  @@index([bookingId])
+  @@index([outcome, startedAt])
 }
 
 model Membership {
@@ -409,4 +439,46 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+model RateLimitAttempt {
+  id        String   @id @default(cuid())
+  key       String
+  createdAt DateTime @default(now())
+
+  @@index([key, createdAt])
+}
+
+model UsedVerificationCode {
+  id       String   @id @default(cuid())
+  email    String
+  codeHash String
+  usedAt   DateTime @default(now())
+
+  @@unique([email, codeHash])
+  @@index([email, usedAt])
+}
+
+enum EmailJobStatus {
+  PENDING
+  SENDING
+  SENT
+  FAILED
+}
+
+model EmailJob {
+  id        String         @id @default(cuid())
+  type      EmailType
+  to        String
+  subject   String
+  text      String
+  html      String?
+  status    EmailJobStatus @default(PENDING)
+  attempts  Int            @default(0)
+  lastError String?
+  runAfter  DateTime       @default(now())
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([status, runAfter])
 }

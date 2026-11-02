@@ -10,7 +10,7 @@ export const signInSchema = z.object({
       .email('Enter a valid email address.'),
   ),
   password: z.preprocess(
-    (value) => (typeof value === 'string' ? value : ''),
+    (value) => (typeof value === 'string' ? value.trim() : ''),
     z.string().min(1, 'Password is required.'),
   ),
 });

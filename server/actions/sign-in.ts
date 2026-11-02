@@ -3,6 +3,8 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
+import { getClientIp, isLimited, recordAttempt } from '@/lib/rate-limit';
+import { setPendingVerificationEmail } from '@/lib/verification-cookie';
 import { roleHomePath } from '@/lib/role-home';
 import { signInSchema } from '@/lib/validation/sign-in';
 
@@ -14,7 +16,6 @@ export type SignInState = {
 };
 
 const invalidCredentials = 'Email or password is incorrect.';
-const unconfirmed = 'Confirm your email first. We have sent a new link.';
 
 function apiErrorCode(error: unknown) {
   if (typeof error !== 'object' || error === null) {
@@ -40,6 +41,24 @@ export async function signInAction(
   formData: FormData,
 ): Promise<SignInState> {
   const requestHeaders = await headers();
+  const ip = getClientIp(requestHeaders);
+  const ipKey = `signin:ip:${ip}`;
+  const emailKey = `signin:email:${String(formData.get('email') ?? '')
+    .trim()
+    .toLowerCase()}`;
+
+  if (await isLimited(ipKey, 20, 15 * 60 * 1000)) {
+    console.log(`[rate-limit] blocked ${ipKey}`);
+    return { error: 'Too many attempts. Please try again later.' };
+  }
+
+  if (await isLimited(emailKey, 5, 15 * 60 * 1000)) {
+    console.log(`[rate-limit] blocked ${emailKey}`);
+    return { error: 'Too many attempts. Please try again later.' };
+  }
+
+  await recordAttempt(ipKey);
+
   const session = await auth.api.getSession({
     headers: requestHeaders,
   });
@@ -69,15 +88,22 @@ export async function signInAction(
       body: {
         email: result.data.email,
         password: result.data.password,
-        callbackURL: '/confirm-email',
       },
       headers: requestHeaders,
     });
 
     role = (response.user as { role?: string } | undefined)?.role;
   } catch (error) {
-    if (apiErrorCode(error) === 'EMAIL_NOT_VERIFIED') {
-      return { error: unconfirmed };
+    const code = apiErrorCode(error);
+
+    if (code === 'EMAIL_NOT_VERIFIED') {
+      const email = String(formData.get('email') ?? '').trim().toLowerCase();
+      await setPendingVerificationEmail(email);
+      redirect('/verify-email?reason=unconfirmed');
+    }
+
+    if (code === 'INVALID_EMAIL_OR_PASSWORD' || code === 'INVALID_PASSWORD') {
+      await recordAttempt(emailKey);
     }
 
     return { error: invalidCredentials };

@@ -1,0 +1,18 @@
+$ npx tsx scripts/hash-twice.ts
+Mon Nov  2 13:06:12 GMT 2026
+
+Need to install the following packages:
+tsx@4.23.15
+Ok to proceed? (y) Password: correct horse battery staple
+Hashed with VetReply's own hashPassword (lib/password.ts)
+
+Hash 1: $argon2id$v=19$m=65536,t=3,p=1$2abBXaMv/7hD+vVJoRFdDA$IY6q7LdZv9jZVK4TR1BMzb6yYVWvYKclHAB1VJZ5dxw
+Hash 2: $argon2id$v=19$m=65536,t=3,p=1$uoleJkY2L/heLt9YKwJLjw$twCIxMd/o6dF9jdgL/wukntzqXDsbA2Z9D/9btQ4DDA
+
+Same hash?            false
+Hash 1 verifies:      true
+Hash 2 verifies:      true
+Wrong password works? false
+
+Salt in hash 1: 2abBXaMv/7hD+vVJoRFdDA
+Salt in hash 2: uoleJkY2L/heLt9YKwJLjw

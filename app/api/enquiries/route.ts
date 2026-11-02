@@ -31,7 +31,8 @@ export async function POST(request: Request) {
   try {
     const enquiry = await createOnlineEnquiry(result.data);
     return NextResponse.json({ id: enquiry.id }, { status: 201 });
-  } catch {
+  } catch (error) {
+    console.error('Failed to create enquiry:', error);
     return NextResponse.json({ error: genericError }, { status: 500 });
   }
 }

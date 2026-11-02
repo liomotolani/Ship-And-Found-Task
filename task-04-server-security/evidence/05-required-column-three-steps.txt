@@ -1,0 +1,44 @@
+=== Step 1: add membershipNumber as optional ===
+Mon Nov  2 12:22:04 GMT 2026
+$ npx prisma migrate dev --name add_membership_number_optional
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.
+Datasource "db": PostgreSQL database "vetreply", schema "public" at "localhost:5433"
+
+Applying migration `20261102122206_add_membership_number_optional`
+
+The following migration(s) have been created and applied from new schema changes:
+
+prisma/migrations/
+  └─ 20261102122206_add_membership_number_optional/
+    └─ migration.sql
+
+Your database is now in sync with your schema.
+
+
+=== Step 2: fill membershipNumber for existing rows ===
+Mon Nov  2 12:22:35 GMT 2026
+$ npx prisma db execute --stdin   (SQL: UPDATE "User" SET "membershipNumber" = 'LEGACY-UNKNOWN' WHERE "membershipNumber" IS NULL;)
+Loaded Prisma config from prisma.config.ts.
+
+Script executed successfully.
+
+=== Step 3: make membershipNumber required ===
+Mon Nov  2 12:24:52 GMT 2026
+$ npx prisma migrate dev --name make_membership_number_required
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.
+Datasource "db": PostgreSQL database "vetreply", schema "public" at "localhost:5433"
+
+Applying migration `20261102122454_make_membership_number_required`
+
+The following migration(s) have been created and applied from new schema changes:
+
+prisma/migrations/
+  └─ 20261102122454_make_membership_number_required/
+    └─ migration.sql
+
+Your database is now in sync with your schema.
+

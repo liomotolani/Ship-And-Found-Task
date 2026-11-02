@@ -1,0 +1,220 @@
+Registration timing: email inside the request vs in a background job
+Mon Nov  2 19:41:50 GMT 2026
+Node v26.11.1, Darwin arm64
+
+=== Email inside the request (await sendEmail), 5 sign-ups ===
+
+=== Email in a background job (EmailJob + scripts/email-worker.ts), 5 sign-ups ===
+[timing] sign-up total: 328.7 ms
+[timing] sign-up total: 163.9 ms
+[timing] sign-up total: 141.8 ms
+Average: 211.5 ms over 3 runs
+
+=== Worker log ===
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 1 jobs claimed
+[email] sent E1 to timing6@example.com.
+[email-worker] finish: 1 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 1 jobs claimed
+[email] sent E1 to timing7@example.com.
+[email-worker] finish: 1 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 1 jobs claimed
+[email] sent E1 to timing8@example.com.
+[email-worker] finish: 1 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying
+[email-worker] start: 0 jobs claimed
+[email-worker] finish: 0 sent, 0 failed, 0 retrying

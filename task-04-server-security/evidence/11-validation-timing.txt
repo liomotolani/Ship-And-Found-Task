@@ -1,0 +1,33 @@
+=== Sign-up timing WITH Zod validation ===
+18:[timing] sign-up validation: 2.449 ms
+19:[timing] sign-up total: 1011.4 ms
+20: POST /auth?form=signup 200 in 1288ms
+21:[timing] sign-up validation: 7.540 ms
+22:[timing] sign-up total: 266.8 ms
+23: POST /auth?form=signup 200 in 400ms
+24:[timing] sign-up validation: 0.458 ms
+25:[timing] sign-up total: 164.5 ms
+26: POST /auth?form=signup 200 in 207ms
+27:[timing] sign-up validation: 0.387 ms
+28:[timing] sign-up total: 163.5 ms
+29: POST /auth?form=signup 200 in 213ms
+30:[timing] sign-up validation: 0.382 ms
+31:[timing] sign-up total: 153.3 ms
+32: POST /auth?form=signup 200 in 192ms
+
+=== Sign-up timing WITHOUT validation (temporary, reverted) ===
+19:[timing] sign-up validation SKIPPED: 0.048 ms
+20:[timing] sign-up total: 357.8 ms
+21: POST /auth?form=signup 200 in 1155ms
+22:[timing] sign-up validation SKIPPED: 0.047 ms
+23:[timing] sign-up total: 159.8 ms
+24: POST /auth?form=signup 200 in 204ms
+25:[timing] sign-up validation SKIPPED: 0.063 ms
+26:[timing] sign-up total: 130.8 ms
+27: POST /auth?form=signup 200 in 169ms
+28:[timing] sign-up validation SKIPPED: 0.038 ms
+29:[timing] sign-up total: 142.7 ms
+30: POST /auth?form=signup 200 in 183ms
+31:[timing] sign-up validation SKIPPED: 0.125 ms
+32:[timing] sign-up total: 194.7 ms
+33: POST /auth?form=signup 200 in 255ms

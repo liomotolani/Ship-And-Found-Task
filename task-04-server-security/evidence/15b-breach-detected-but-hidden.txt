@@ -1,0 +1,6 @@
+Breached password rejected by the server, but no error shown on the sign-up form
+Mon Nov  2 20:33:24 GMT 2026
+Dev server log:
+[breach-check] prefix 98A16, 2100 suffixes returned, breached: true
+
+Form: no error shown. Cause: showError in components/SignUpForm.tsx only shows a server error for a field the user has not touched.

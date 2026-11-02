@@ -107,3 +107,19 @@ cost in production. None of these has been fixed.
   settings indefinitely, not the ones I chose and measured
   (`hashing.md`), and the scrypt code has to be kept forever because
   nothing ever moves them off it.
+
+## Defect 9: The sign-up form hides errors from the server
+
+- **File and line:** `components/SignUpForm.tsx`, lines 99 to 105.
+- **What is wrong:** `showError` only shows a server error for a field if
+  the user has **not** touched that field:
+  `!validation.touched[field] && state.field === field`. Every field has to
+  be typed in before the form can be submitted, so every server error tied
+  to a field is thrown away. I found it with the breach check: the server
+  rejected a breached password, but the form showed nothing
+  (`evidence/15b-breach-detected-but-hidden.txt`). It has been there since
+  Task 3; the breach check was just the first rule that only the server
+  checks.
+- **Cost in production:** a user with a breached password presses Sign up
+  and nothing happens, with no message, so they can't fix it and may give
+  up. The same goes for any future rule only the server can check.

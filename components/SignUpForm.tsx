@@ -12,6 +12,7 @@ import { passwordHint } from '@/lib/validation/password';
 import { signUpSchema } from '@/lib/validation/sign-up';
 import {
   signUpAction,
+  type SignUpField,
   type SignUpState,
 } from '@/server/actions/sign-up';
 
@@ -96,11 +97,11 @@ export default function SignUpForm() {
       fieldMessage(signUpSchema.shape.membershipNumber, value),
     terms: (value) => fieldMessage(signUpSchema.shape.terms, value === 'on'),
   });
-  const showError = (
-    field: 'name' | 'email' | 'password' | 'membershipNumber' | 'terms',
-  ) =>
+  const [dismissedServerErrorField, setDismissedServerErrorField] =
+    useState<SignUpField | null>(null);
+  const showError = (field: SignUpField) =>
     validation.errors[field] ??
-    (!validation.touched[field] && state.field === field
+    (state.field === field && dismissedServerErrorField !== field
       ? state.error
       : undefined);
   const nameError = showError('name');
@@ -188,7 +189,12 @@ export default function SignUpForm() {
   }
 
   return (
-    <form action={formAction} noValidate onInput={handleFormInput}>
+    <form
+      action={formAction}
+      noValidate
+      onInput={handleFormInput}
+      onSubmit={() => setDismissedServerErrorField(null)}
+    >
       {state.success ? (
         <p role="status" style={successText}>
           {state.success}
@@ -211,9 +217,10 @@ export default function SignUpForm() {
           onBlur={(event) =>
             validation.handleBlur('name', event.currentTarget.value)
           }
-          onChange={(event) =>
-            validation.handleChange('name', event.currentTarget.value)
-          }
+          onChange={(event) => {
+            setDismissedServerErrorField('name');
+            validation.handleChange('name', event.currentTarget.value);
+          }}
           aria-invalid={nameError ? true : undefined}
           aria-describedby={nameError ? 'name-error' : undefined}
         />
@@ -240,9 +247,10 @@ export default function SignUpForm() {
           onBlur={(event) =>
             validation.handleBlur('email', event.currentTarget.value)
           }
-          onChange={(event) =>
-            validation.handleChange('email', event.currentTarget.value)
-          }
+          onChange={(event) => {
+            setDismissedServerErrorField('email');
+            validation.handleChange('email', event.currentTarget.value);
+          }}
           aria-invalid={emailError ? true : undefined}
           aria-describedby={emailError ? 'email-error' : undefined}
         />
@@ -273,9 +281,10 @@ export default function SignUpForm() {
               setShowPasswordHint(false);
               validation.handleBlur('password', event.currentTarget.value);
             }}
-            onChange={(event) =>
-              validation.handleChange('password', event.currentTarget.value)
-            }
+            onChange={(event) => {
+              setDismissedServerErrorField('password');
+              validation.handleChange('password', event.currentTarget.value);
+            }}
             aria-invalid={passwordError ? true : undefined}
             aria-describedby={passwordDescribedBy}
           />
@@ -326,12 +335,13 @@ export default function SignUpForm() {
               event.currentTarget.value,
             )
           }
-          onChange={(event) =>
+          onChange={(event) => {
+            setDismissedServerErrorField('membershipNumber');
             validation.handleChange(
               'membershipNumber',
               event.currentTarget.value,
-            )
-          }
+            );
+          }}
           aria-invalid={membershipNumberError ? true : undefined}
           aria-describedby={
             membershipNumberError ? 'membershipNumber-error' : undefined
@@ -718,12 +728,13 @@ export default function SignUpForm() {
               cursor: 'pointer',
               flexShrink: 0,
             }}
-            onChange={(event) =>
+            onChange={(event) => {
+              setDismissedServerErrorField('terms');
               validation.handleBlur(
                 'terms',
                 event.currentTarget.checked ? 'on' : '',
-              )
-            }
+              );
+            }}
             onBlur={(event) =>
               validation.handleBlur(
                 'terms',

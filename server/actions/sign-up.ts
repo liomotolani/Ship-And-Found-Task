@@ -6,6 +6,7 @@ import { auth } from '@/lib/auth';
 import { getClientIp, isLimited, recordAttempt } from '@/lib/rate-limit';
 import { setPendingVerificationEmail } from '@/lib/verification-cookie';
 import { signUpSchema } from '@/lib/validation/sign-up';
+import { isPasswordBreached } from '@/server/security/breach-check';
 
 export type SignUpField =
   | 'name'
@@ -86,6 +87,16 @@ export async function signUpAction(
     return {
       error: issue?.message ?? genericError,
       field: issue?.path[0] as SignUpField | undefined,
+    };
+  }
+
+  const breach = await isPasswordBreached(result.data.password);
+
+  if (breach.breached) {
+    return {
+      error:
+        'This password has appeared in a data breach. Choose a different password.',
+      field: 'password',
     };
   }
 

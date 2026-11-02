@@ -440,7 +440,9 @@ sent. The service replies with every hash suffix it knows that starts with
 those 5 characters, usually hundreds of them, each with a count of how
 many breaches it appeared in. My server then checks, locally, whether the
 rest of my hash is in that list. If it is, the password has appeared in a
-breach, and the password should be rejected.
+breach, and VetReply refuses the sign-up. In my test, the only thing that
+left my server was `98A16`; the service sent back 2,100 lines, including
+padding, and the match was found locally.
 
 The service never sees the password, or even the full hash. It only learns
 that the password is one of the hundreds that share those 5 characters,

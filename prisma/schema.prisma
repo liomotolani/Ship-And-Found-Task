@@ -134,6 +134,7 @@ model User {
   name              String
   email             String         @unique
   membershipNumber  String
+  termsAcceptedAt   DateTime?
   emailVerified     Boolean        @default(false)
   role              Role           @default(CLIENT)
   isActive          Boolean        @default(true)

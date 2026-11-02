@@ -87,6 +87,7 @@ export async function signUpAction(
         email: result.data.email,
         password: result.data.password,
         membershipNumber: result.data.membershipNumber,
+        termsAcceptedAt: new Date(),
         callbackURL: '/confirm-email',
       },
       headers: requestHeaders,

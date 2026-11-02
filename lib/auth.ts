@@ -60,6 +60,11 @@ export const auth = betterAuth({
         required: true,
         input: true,
       },
+      termsAcceptedAt: {
+        type: 'date',
+        required: false,
+        input: true,
+      },
     },
   },
   rateLimit: {

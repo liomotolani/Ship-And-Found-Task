@@ -1,6 +1,8 @@
 'use server';
 
+import { headers } from 'next/headers';
 import { auth } from '@/lib/auth';
+import { getClientIp, isLimited, recordAttempt } from '@/lib/rate-limit';
 import { resetPasswordSchema } from '@/lib/validation/reset-password';
 
 export type ResetPasswordState = {
@@ -16,6 +18,17 @@ export async function resetPasswordAction(
   _previousState: ResetPasswordState,
   formData: FormData,
 ): Promise<ResetPasswordState> {
+  const requestHeaders = await headers();
+  const ip = getClientIp(requestHeaders);
+  const resetKey = `reset:ip:${ip}`;
+
+  if (await isLimited(resetKey, 10, 15 * 60 * 1000)) {
+    console.log(`[rate-limit] blocked ${resetKey}`);
+    return { error: 'Too many attempts. Please try again later.' };
+  }
+
+  await recordAttempt(resetKey);
+
   const result = resetPasswordSchema.safeParse({
     token: formData.get('token'),
     newPassword: formData.get('newPassword'),

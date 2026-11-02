@@ -1,0 +1,41 @@
+=== Repeated sign-in attempts to Better Auth's HTTP endpoint ===
+Mon Nov  2 17:30:05 GMT 2026
+Limit set in lib/auth.ts: 20 requests per 15 minutes for sign-in by email
+
+Attempt 1: HTTP 401
+Attempt 2: HTTP 401
+Attempt 3: HTTP 401
+Attempt 4: HTTP 401
+Attempt 5: HTTP 401
+Attempt 6: HTTP 401
+Attempt 7: HTTP 401
+Attempt 8: HTTP 401
+Attempt 9: HTTP 401
+Attempt 10: HTTP 401
+Attempt 11: HTTP 401
+Attempt 12: HTTP 401
+Attempt 13: HTTP 401
+Attempt 14: HTTP 401
+Attempt 15: HTTP 401
+Attempt 16: HTTP 401
+Attempt 17: HTTP 401
+Attempt 18: HTTP 401
+Attempt 19: HTTP 401
+Attempt 20: HTTP 401
+Attempt 21: HTTP 429
+Attempt 22: HTTP 429
+Attempt 23: HTTP 429
+Attempt 24: HTTP 429
+Attempt 25: HTTP 429
+
+=== Full response of attempt 26 ===
+HTTP/1.1 429 Too Many Requests
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+content-type: application/json
+x-retry-after: 900
+Date: Mon, 02 Nov 2026 17:30:11 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"message":"Too many requests. Please try again later."}

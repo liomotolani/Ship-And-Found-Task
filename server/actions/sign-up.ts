@@ -3,6 +3,8 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
+import { getClientIp, isLimited, recordAttempt } from '@/lib/rate-limit';
+import { setPendingVerificationEmail } from '@/lib/verification-cookie';
 import { signUpSchema } from '@/lib/validation/sign-up';
 
 export type SignUpField =
@@ -20,8 +22,6 @@ export type SignUpState = {
 
 const genericError =
   'Something went wrong. Nothing was changed. Try again.';
-
-const successMessage = 'Check your email to confirm your account.';
 
 function isUserAlreadyExists(error: unknown) {
   if (typeof error !== 'object' || error === null) {
@@ -44,6 +44,15 @@ export async function signUpAction(
 ): Promise<SignUpState> {
   const requestStart = performance.now();
   const requestHeaders = await headers();
+  const ip = getClientIp(requestHeaders);
+  const signupKey = `signup:ip:${ip}`;
+
+  if (await isLimited(signupKey, 5, 60 * 60 * 1000)) {
+    console.log(`[rate-limit] blocked ${signupKey}`);
+    return { error: 'Too many sign-up attempts. Please try again later.' };
+  }
+
+  await recordAttempt(signupKey);
 
   const session = await auth.api.getSession({
     headers: requestHeaders,
@@ -88,7 +97,6 @@ export async function signUpAction(
         password: result.data.password,
         membershipNumber: result.data.membershipNumber,
         termsAcceptedAt: new Date(),
-        callbackURL: '/confirm-email',
       },
       headers: requestHeaders,
     });
@@ -104,5 +112,6 @@ export async function signUpAction(
   console.log(
     `[timing] sign-up total: ${(performance.now() - requestStart).toFixed(1)} ms`,
   );
-  return { success: successMessage };
+  await setPendingVerificationEmail(result.data.email);
+  redirect('/verify-email');
 }
